@@ -1,89 +1,98 @@
-#photography {
+@import "~include-media/dist/include-media";
 
+#photography {
   #galleries {
-    display: flex;
-    flex-direction: column;
-    flex: 1 0 auto;
     $margin_width: 5.5rem;
+
+    display: flex;
+    flex: 1 0 auto;
+    flex-direction: column;
     width: calc(100% - (#{$margin_width} * 2));
-    margin: 1.5rem $margin_width;
     max-width: 128rem;
+    margin: 1.5rem $margin_width;
 
     ul {
       justify-content: center;
     }
 
     .album {
-      display: flex;
-      flex-direction: column;
-      flex: 1 0 auto;
-      justify-content: center;
-      align-items: center;
       position: relative;
+      display: flex;
+      flex: 1 0 auto;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
       width: 100%;
       max-width: 102.4rem;
       margin: 1.5rem 0;
 
       a {
         $cut: 2.5rem;
-        flex: 0 0 auto;
-        position: relative;
-        width: 100%;
-        background-color: rgba(255, 255, 255, 0.9);
-        overflow: hidden;
-        clip-path: polygon($cut 0%, 100% 0%, 100% calc(100% - #{$cut}), calc(100% - #{$cut}) 100%, 0% 100%, 0% $cut);
 
-        &:before {
-          content: "";
+        position: relative;
+        flex: 0 0 auto;
+        clip-path: polygon($cut 0%, 100% 0%, 100% calc(100% - #{$cut}), calc(100% - #{$cut}) 100%, 0% 100%, 0% $cut);
+        width: 100%;
+        overflow: hidden;
+        background-color: rgba(255, 255, 255, 0.9);
+
+        &::before {
           position: absolute;
           top: 0;
           left: 0;
-          border-width: $cut $cut 0 0;
-          border-style: solid;
-          border-color: transparent;
+          border: {
+            width: $cut $cut 0 0;
+            color: transparent;
+            style: solid;
+          }
+          content: "";
         }
 
-        &:after {
-          content: "";
+        &::after {
           position: absolute;
-          bottom: 0;
           right: 0;
-          border-width: 0 0 $cut $cut;
-          border-style: solid;
-          border-color: transparent;
+          bottom: 0;
+          border: {
+            width: 0 0 $cut $cut;
+            color: transparent;
+            style: solid;
+          }
+          content: "";
         }
 
         .preview {
           display: flex;
-          flex-direction: column;
           flex: 0 0 auto;
-          justify-content: center;
+          flex-direction: column;
           align-items: center;
+          justify-content: center;
           width: 100%;
           height: 30rem;
 
           img {
-            flex: 0 0 auto;
             position: relative;
+            flex: 0 0 auto;
             min-width: 100%;
             transition: transform 0.2s ease-in-out;
           }
 
           h2 {
-            display: flex;
-            align-items: center;
             position: absolute;
             bottom: 0;
+            display: flex;
+            align-items: center;
             width: 100%;
             height: 5rem;
-            color: #ebebeb;
-            font-family: "Orbitron";
-            font-size: 2.2rem;
-            font-weight: bold;
-            text-transform: uppercase;
-            background-color: rgba(0, 0, 0, 0.3);
             padding-left: 1.5rem;
             margin: 0;
+            font: {
+              size: 2.2rem;
+              family: "Orbitron";
+              weight: bold;
+            }
+            color: #ebebeb;
+            text-transform: uppercase;
+            background-color: rgba(0, 0, 0, 0.3);
             transition: color 0.2s ease-in-out;
           }
 
@@ -93,8 +102,8 @@
             }
 
             h2 {
-              text-decoration: none;
               color: #fff;
+              text-decoration: none;
             }
           }
         }

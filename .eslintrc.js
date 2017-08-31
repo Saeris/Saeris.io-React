@@ -1,5 +1,8 @@
 const { join } = require(`path`)
 
+const pubDir = join(__dirname, `public`)
+const srcDir = join(__dirname, `src`)
+
 module.exports = {
   "root": true,
   "parser": "babel-eslint",
@@ -25,14 +28,18 @@ module.exports = {
         "config": {
           "resolve": {
             "alias": {
-              "@": join(__dirname, `src`),
-              "components": join(__dirname, `src/app/components`),
-              "routes": join(__dirname, `src/app/routes`),
-              "services": join(__dirname, `src/app/services`),
-              "styles": join(__dirname, `src/styles`),
-              "react": "preact-compat/dist/preact-compat",
-              "react-dom": "preact-compat/dist/preact-compat",
-              "create-react-class": "preact-compat/lib/create-react-class"
+              // Application Aliases
+              '@': srcDir,
+              '@components': join(srcDir, `app/components`),
+              '@models': join(srcDir, `app/models`),
+              '@public': pubDir,
+              '@routes': join(srcDir, `app/routes`),
+              '@services': join(srcDir, `app/services`),
+              // Module Aliases
+              react: `preact-compat/dist/preact-compat`,
+              'react-dom': `preact-compat/dist/preact-compat`,
+              'create-react-class': `preact-compat/lib/create-react-class`,
+              'react-addons-css-transition-group': `preact-css-transition-group`
             },
             "modules": [
               "node_modules",
@@ -45,22 +52,22 @@ module.exports = {
   },
   "parserOptions": {
     "ecmaFeatures": {
-      "arrowFunctions"                          : true,
-      "blockBindings"                           : true,
-      "classes"                                 : true,
-      "defaultParams"                           : true,
-      "destructuring"                           : true,
-      "forOf"                                   : true,
-      "generators"                              : false,
-      "modules"                                 : true,
-      "objectLiteralComputedProperties"         : true,
-      "objectLiteralDuplicateProperties"        : false,
-      "objectLiteralShorthandMethods"           : true,
-      "objectLiteralShorthandProperties"        : true,
-      "spread"                                  : true,
-      "superInFunctions"                        : true,
-      "templateStrings"                         : true,
-      "jsx"                                     : true
+      "arrowFunctions": true,
+      "blockBindings": true,
+      "classes": true,
+      "defaultParams": true,
+      "destructuring": true,
+      "forOf": true,
+      "generators": false,
+      "modules": true,
+      "objectLiteralComputedProperties": true,
+      "objectLiteralDuplicateProperties": false,
+      "objectLiteralShorthandMethods": true,
+      "objectLiteralShorthandProperties": true,
+      "spread": true,
+      "superInFunctions": true,
+      "templateStrings": true,
+      "jsx": true
     }
   },
   "rules": {
@@ -71,7 +78,7 @@ module.exports = {
 
     "no-shadow"                                 : 2,
     "no-shadow-restricted-names"                : 2,
-    "no-unused-vars"                            : [2, { "vars": "local", "args": "none" }],
+    "no-unused-vars"                            : [2, { "vars": "local", "args": "none", "argsIgnorePattern": "^_" }],
     "no-use-before-define"                      : 0,
 
     "comma-dangle"                              : [2, "never"],

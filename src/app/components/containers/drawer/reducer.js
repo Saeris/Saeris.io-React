@@ -1,4 +1,4 @@
-import { Reducer } from "../../../services"
+import { Reducer } from "@services"
 import { actions } from "./actions"
 
 @Reducer

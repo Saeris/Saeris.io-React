@@ -1,6 +1,5 @@
-import Album from "../../models/album"
-import Photo from "../../models/photo"
-import config from "../../../config/app.config"
+import config from "@/config/app.config"
+import { Album, Photo } from "@models"
 import { actions } from "./actions"
 
 const { flickr } = config

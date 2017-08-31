@@ -1,5 +1,5 @@
-import GitHub from "github-api"
-import config from "../../../../config/app.config"
+// import GitHub from "github-api"
+// import config from "@/config/app.config"
 import { Reducer } from "../../../services"
 import { actions } from "./actions"
 

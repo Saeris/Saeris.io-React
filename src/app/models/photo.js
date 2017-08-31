@@ -1,11 +1,8 @@
-import { inject, LogManager } from "aurelia-framework"
-import Flickr from '../services/flickr'
+import { Flickr } from "@services"
 
-@inject(Flickr)
 export default class Photo {
-  constructor(photo, flickr) {
-    this.log = LogManager.getLogger(`Saeris.io/${this.constructor.name}`)
-    this.api = flickr
+  constructor(photo) {
+    this.api = Flickr
     this.id = photo.id
     this.title = photo.title
     this.exif = () => this.getExifData()
@@ -49,12 +46,9 @@ export default class Photo {
 
   async getExifData() {
     this.exif = await this.api.getPhotoExif(this.id)
-    this.log.debug(this.exif)
   }
 
-  getBoxSize() {
+  getBoxSize() {}
 
-  }
-
-  aspectRatio = (a, b) => (b === 0) ? a : this.aspectRatio(b, a % b)
+  aspectRatio = (a, b) => (b === 0 ? a : this.aspectRatio(b, a % b))
 }

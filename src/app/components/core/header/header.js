@@ -1,5 +1,5 @@
-import { toggleDrawer, toggleModal } from "components/containers"
-import './header.scss'
+import { toggleDrawer, toggleModal } from "@components/containers"
+import "./header.scss"
 
 const selectors = (state, ownProps) => ({})
 
@@ -16,15 +16,15 @@ export default class AppHeader extends Component {
       <header id="appHeader">
         <button className="menu" click={toggleNavigation()} title="Navigation">
           <span>
-            <i className="fa fa-bars"></i>
+            <i className="fa fa-bars" />
           </span>
         </button>
         <h1>{title}</h1>
-        {!!picture &&
+        {!!picture && (
           <button className="about" click={openProfile()} title="About Me">
             <img src={picture} alt="Author's Picture" />
           </button>
-        }
+        )}
       </header>
     )
   }

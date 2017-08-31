@@ -1,12 +1,8 @@
-import { Layout } from "components/containers"
-import './projects.scss'
+import { Layout } from "@components/containers"
+import "./projects.scss"
 
 export default class Projects extends Component {
   render() {
-    return (
-      <Layout id="projects">
-
-      </Layout>
-    )
+    return <Layout id="projects" />
   }
 }

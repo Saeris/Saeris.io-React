@@ -1,33 +1,33 @@
-@import "../../../../sass/utils/include-media";
+@import "~include-media/dist/include-media";
 
 @mixin styles($hidden) {
   #appHeader {
-    display: flex;
-    justify-content: space-between;
-    flex: 1 0 auto;
     position: absolute;
+    z-index: 20;
+    display: flex;
+    flex: 1 0 auto;
+    justify-content: space-between;
     width: 100%;
     height: 5.5rem;
     font-family: "Open Sans", sans-serif;
+
     @if $hidden == false {
       position: relative;
       margin-bottom: 2.5rem;
     }
-    z-index: 20;
-    -webkit-transition: -webkit-transform .25s ease-in-out;
 
     button {
       width: 5.5rem;
       height: 5.5rem;
+      padding: 0;
+      border: 0;
       color: #ebebeb;
       background: none;
-      border: none;
-      padding: 0;
 
       span {
         display: flex;
-        justify-content: center;
         align-items: center;
+        justify-content: center;
 
         i {
           font-size: 2.1rem;
@@ -44,6 +44,7 @@
       &:hover {
         color: #fff;
         cursor: pointer;
+
         span {
           img {
             border-radius: calc(3rem / 4);
@@ -57,25 +58,19 @@
     }
 
     h1 {
-      @if $hidden {
-        display: none;
-      } @else {
-        display: flex;
-      }
-      justify-content: center;
-      align-items: center;
+      display: if($hidden, none, flex);
       flex: 1 1 auto;
-      color: #fff;
-      font-size: 2.1rem;
-      font-weight: 400;
+      align-items: center;
+      justify-content: center;
+      margin: 0;
+      font: {
+        size: 2.1rem;
+        weight: normal;
+      }
       letter-spacing: 0.3rem;
+      color: #fff;
       text-align: center;
       vertical-align: middle;
-      margin: 0;
-    }
-
-    .menu {
-
     }
 
     .about {
@@ -86,53 +81,38 @@
   }
 }
 
-@include media('<=phone') {
-  $values: (
-    hidden: false
-  );
+@include media("<=phone") {
+  $values: (hidden: false);
 
   @include styles($values...);
 }
 
-@include media('>=phone', '<=tablet') {
-  $values: (
-    hidden: false
-  );
+@include media(">=phone", "<=tablet") {
+  $values: (hidden: false);
 
   @include styles($values...);
 }
 
-@include media('>=tablet', '<=desktop', 'landscape', 'retina2x') {
-  $values: (
-    hidden: true
-  );
+@include media(">=tablet", "<=desktop", "landscape", "retina2x") {
+  $values: (hidden: true);
 
   @include styles($values...);
 }
 
-@include media('>=tablet', '<desktop') {
-<<<<<<< Updated upstream
-  $values: (
-    hidden: true
-  );
+@include media(">=tablet", "<desktop") {
+  $values: (hidden: true);
 
   @include styles($values...);
 }
 
-@include media('>=tablet', '<=desktop') {
-=======
->>>>>>> Stashed changes
-  $values: (
-    hidden: true
-  );
+@include media(">=tablet", "<=desktop") {
+  $values: (hidden: true);
 
   @include styles($values...);
 }
 
-@include media('>=desktop') {
-  $values: (
-    hidden: true
-  );
+@include media(">=desktop") {
+  $values: (hidden: true);
 
   @include styles($values...);
 }

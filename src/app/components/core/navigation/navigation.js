@@ -1,6 +1,6 @@
-import { Drawer, toggleModal } from "components/containers"
-import { Link } from "components/core"
-import './navigation.scss'
+import { Drawer, toggleModal } from "@components/containers"
+import { Link } from "@components/core"
+import "./navigation.scss"
 
 const selectors = (state, ownProps) => ({})
 
@@ -28,7 +28,7 @@ export default class Navigation extends Component {
               {router.navigation.map(({ isActive, href, title, icon }) => (
                 <li className={`${isActive ? `active` : ``}`}>
                   <Link href={href} title={title}>
-                    <i className={`fa fa-${icon}`} aria-hidden="true"></i>
+                    <i className={`fa fa-${icon}`} aria-hidden="true" />
                     <span>{title}</span>
                   </Link>
                 </li>
@@ -36,14 +36,14 @@ export default class Navigation extends Component {
             </ul>
 
             <ul id="socialnav" class="nav-links">
-              {services.map(({ url, accName, icon }) =>
+              {services.map(({ url, accName, icon }) => (
                 <li>
                   <Link href={url} title={accName} target="_blank">
-                    <i className={`fa fa-${icon}`} aria-hidden="true"></i>
+                    <i className={`fa fa-${icon}`} aria-hidden="true" />
                     <span>{accName}</span>
                   </Link>
                 </li>
-              )}
+              ))}
             </ul>
           </section>
         </Drawer>
