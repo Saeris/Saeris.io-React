@@ -1,0 +1,167 @@
+// Light
+@font-face {
+  font: {
+    family: "Klavika";
+    style: normal;
+    weight: 300;
+  }
+  src: url("Klavika-Light.woff2") format("woff2"), url("Klavika-Light.woff") format("woff");
+}
+
+// Light Oldstyle
+@font-face {
+  font: {
+    family: "Klavika";
+    style: normal;
+    variant: oldstyle-nums;
+    weight: 300;
+  }
+  src: url("KlavikaLight-OSF.woff2") format("woff2"), url("KlavikaLight-OSF.woff") format("woff");
+}
+
+// Light Italic
+@font-face {
+  font: {
+    family: "Klavika";
+    style: italic;
+    weight: 300;
+  }
+  src: url("Klavika-LightItalic.woff2") format("woff2"), url("Klavika-LightItalic.woff") format("woff");
+}
+
+// Light Italic Small Caps
+@font-face {
+  font: {
+    family: "Klavika";
+    style: italic;
+    variant: small-caps;
+    weight: 300;
+  }
+  src: url("KlavikaLightCaps-ItalicSC.woff2") format("woff2"), url("KlavikaLightCaps-ItalicSC.woff") format("woff");
+}
+
+// Regular
+@font-face {
+  font: {
+    family: "Klavika";
+    style: normal;
+    weight: 400;
+  }
+  src: url("Klavika-Regular.woff2") format("woff2"), url("Klavika-Regular.woff") format("woff");
+}
+
+// Regular Small Caps
+@font-face {
+  font: {
+    family: "Klavika";
+    style: normal;
+    variant: small-caps;
+    weight: 400;
+  }
+  src: url("KlavikaRegCaps-SC.woff2") format("woff2"), url("KlavikaRegCaps-SC.woff") format("woff");
+}
+
+// Regular Italic
+@font-face {
+  font: {
+    family: "Klavika";
+    style: italic;
+    weight: 400;
+  }
+  src: url("Klavika-RegularItalic.woff2") format("woff2"), url("Klavika-RegularItalic.woff") format("woff");
+}
+
+// Regular Italic Small Caps
+@font-face {
+  font: {
+    family: "Klavika";
+    style: italic;
+    variant: small-caps;
+    weight: 400;
+  }
+  src: url("KlavikaRegCaps-ItalicSC.woff2") format("woff2"), url("KlavikaRegCaps-ItalicSC.woff") format("woff");
+}
+
+// Medium
+@font-face {
+  font: {
+    family: "Klavika";
+    style: normal;
+    weight: 500;
+  }
+  src: url("Klavika-Medium.woff2") format("woff2"), url("Klavika-Medium.woff") format("woff");
+}
+
+// Medium Small Caps
+@font-face {
+  font: {
+    family: "Klavika";
+    style: normal;
+    variant: small-caps;
+    weight: 500;
+  }
+  src: url("KlavikaMedCaps-SC.woff2") format("woff2"), url("KlavikaMedCaps-SC.woff") format("woff");
+}
+
+// Medium Italic
+@font-face {
+  font: {
+    family: "Klavika";
+    style: italic;
+    weight: 500;
+  }
+  src: url("Klavika-MediumItalic.woff2") format("woff2"), url("Klavika-MediumItalic.woff") format("woff");
+}
+
+// Medium Italic Small Caps
+@font-face {
+  font: {
+    family: "Klavika";
+    style: italic;
+    variant: small-caps;
+    weight: 500;
+  }
+  src: url("KlavikaMed-ItalicSC.woff2") format("woff2"), url("KlavikaMed-ItalicSC.woff") format("woff");
+}
+
+// Medium Italic Oldstyle
+@font-face {
+  font: {
+    family: "Klavika";
+    style: italic;
+    variant: oldstyle-nums;
+    weight: 500;
+  }
+  src: url("KlavikaMedium-ItalicOSF.woff2") format("woff2"), url("KlavikaMedium-ItalicOSF.woff") format("woff");
+}
+
+// Bold
+@font-face {
+  font: {
+    family: "Klavika";
+    style: normal;
+    weight: 700;
+  }
+  src: url("Klavika-Bold.woff2") format("woff2"), url("Klavika-Bold.woff") format("woff");
+}
+
+// Bold Italic
+@font-face {
+  font: {
+    family: "Klavika";
+    style: italic;
+    weight: 700;
+  }
+  src: url("Klavika-BoldItalic.woff2") format("woff2"), url("Klavika-BoldItalic.woff") format("woff");
+}
+
+// Bold Italic Small Caps
+@font-face {
+  font: {
+    family: "Klavika";
+    style: italic;
+    variant: small-caps;
+    weight: 700;
+  }
+  src: url("KlavikaBoldCaps-ItalicSC.woff2") format("woff2"), url("KlavikaBoldCaps-ItalicSC.woff") format("woff");
+}

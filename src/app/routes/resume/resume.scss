@@ -1,74 +1,86 @@
+@import "~styles/colors";
+@import "~styles/mixins/text-gradient";
 @import "~include-media/dist/include-media";
 
-@mixin styles($title-padding, $name-size, $name-height, $title-size, $title-height, $content-max-width, $skill-margin, $skill-width) {
-  #resume {
-    #title {
+@mixin styles($scale, $content-max-width, $skill-width, $phone, $hidden) {
+  :global(#resume) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+
+    .title {
       display: flex;
       flex: 0 0 auto;
       flex-direction: column;
       align-content: center;
       justify-content: center;
       width: 100%;
-      padding: $title-padding;
-      color: rgb(255, 255, 255);
+      max-width: $content-max-width;
+      padding: if($phone, 1rem 0 1rem 0, 6rem 0 2rem 0);
       text-align: center;
 
       h1 {
+        @include text-gradient($primary-gradient);
         flex: 0 0 auto;
         margin: 0;
         font: {
-          size: $name-size;
+          size: calc(5rem * #{$scale});
           family: "Orbitron";
           weight: bold;
         }
-        text: {
-          transform: uppercase;
-          shadow: 0 0 1rem rgba(171, 246, 255, 0.9);
-        }
-        line-height: $name-height;
+        line-height: calc(5rem * #{$scale});
+        color: $purple;
+        text-transform: uppercase;
       }
 
       h2 {
         flex: 0 0 auto;
         margin: 0;
         margin-bottom: 3rem;
-        line-height: $title-height;
+        line-height: calc((5rem * 0.6) * #{$scale});
         font: {
-          size: $title-size;
-          family: "klavika_light";
-          weight: normal;
+          size: calc((5rem * 0.69) * #{$scale});
+          family: "Klavika";
+          weight: 300;
         }
-        color: rgba(236, 254, 255, 0.9);
-        text-shadow: 0 0 0.5rem rgba(171, 246, 255, 0.9);
+        color: $blue;
       }
 
       ul {
         display: flex;
+        flex-flow: if($phone, column, row);
         justify-content: center;
-        background-color: rgba(255, 255, 255, 0.15);
 
         li {
-          flex: 0 0 auto;
+          flex: 1 0 auto;
           min-width: 10rem;
           padding: 0 1rem;
 
           a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
             font: {
-              size: 2.4rem;
-              family: "klavika_reg_caps";
+              size: 2.6rem;
+              family: "Klavika";
+              variant: small-caps;
               style: normal;
             }
-            color: rgba(236, 254, 255, 0.9);
-            text-decoration: none;
+            color: $blue;
+            text: {
+              transform: lowercase;
+              decoration: none;
+            }
 
             i {
               margin-right: 1rem;
               font-size: 2.6rem;
+              color: $purple;
             }
 
             &:hover {
-              color: rgba(255, 255, 255, 1);
-              text-shadow: 0 0 5px rgba(171, 246, 255, 0.9);
+              color: lighten($blue, 10%);
             }
           }
         }
@@ -76,53 +88,35 @@
     }
 
     .content_block {
-      $cut: 2.5rem;
-      $margin-width: 3rem;
-
       position: relative;
       display: flex;
       flex: 1 0 auto;
       flex-direction: column;
-      clip-path: polygon($cut 0%, 100% 0%, 100% calc(100% - #{$cut}), calc(100% - #{$cut}) 100%, 0% 100%, 0% $cut);
-      width: calc(100% - (#{$margin-width} * 2));
+      width: 100%;
       max-width: $content-max-width;
-      padding: 1rem 2rem;
-      margin: 1.5rem $margin-width;
-      border: 0.2rem solid rgba(255, 255, 255, 0.65);
-      border-radius: 0.3rem;
-      background-color: rgba(255, 255, 255, 0.9);
-
-      &::before {
-        position: absolute;
-        top: 0;
-        left: 0;
-        border: {
-          width: $cut $cut 0 0;
-          color: rgba(255, 255, 255, 0.65) transparent transparent rgba(255, 255, 255, 0.65);
-          style: solid;
-        }
-        content: "";
-      }
-
-      &::after {
-        position: absolute;
-        right: 0;
-        bottom: 0;
-        border: {
-          width: 0 0 $cut $cut;
-          color: transparent #fff #fff transparent;
-          style: solid;
-        }
-        content: "";
-      }
+      padding: if($phone, 0 1rem, 1rem 2rem);
+      font-family: "Klavika";
 
       h3 {
-        text-transform: uppercase;
+        margin: 0;
         font: {
           size: 2.2rem;
-          family: "Orbitron";
-          weight: bold;
+          style: italic;
+          weight: 300;
         }
+        color: $blue;
+      }
+
+      hr {
+        height: 0.2rem;
+        margin: {
+          top: 0;
+          right: 0;
+          bottom: 0.5rem;
+          left: 0;
+        }
+        border: 0;
+        background-color: $gray;
       }
 
       ul {
@@ -130,30 +124,31 @@
         flex: 0 0 auto;
         flex-direction: column;
         width: 100%;
-        margin-bottom: 1rem;
 
         li {
           flex: 0 0 auto;
           width: 100%;
+          font: {
+            size: 1.8rem;
+            weight: 300;
+          }
+          color: $gunmetal;
+          text-transform: none;
 
           .header {
             display: flex;
+            flex-flow: row wrap;
             align-items: baseline;
 
             h4 {
               flex: 0 0 auto;
               margin: 0;
-              font: {
-                size: 1.8rem;
-                family: "klavika_regular";
-                style: italic;
-              }
-              text-shadow: -0.5px -0.5px 1px #3fa9f5;
+              font-size: 2rem;
+              color: $purple;
 
               strong {
-                margin: 0 0.5rem;
+                padding: 0 0.5rem;
                 font-style: normal;
-                color: #3fa9f5;
                 text-shadow: none;
               }
             }
@@ -162,14 +157,14 @@
               flex: 0 0 auto;
               margin: 0;
               font: {
-                size: 1.4rem;
-                family: "klavika_regular";
+                size: 2rem;
                 style: normal;
+                weight: 300;
               }
-              color: #3fa9f5;
+              color: $blue;
 
               a {
-                color: #3fa9f5;
+                color: $blue;
                 text: {
                   decoration: none;
                   shadow: none;
@@ -184,55 +179,79 @@
               h6 {
                 margin: 0;
                 font: {
-                  size: 1.2rem;
-                  family: "klavika_regular";
-                  style: italic;
+                  size: 1.8rem;
+                  style: normal;
+                  weight: 300;
                 }
-                color: #3fa9f5;
+                color: $blue;
+              }
 
-                strong {
-                  margin: 0 0.25rem;
-                  font-style: normal;
+              a {
+                font: {
+                  size: 1.8rem;
+                  style: normal;
+                  weight: 300;
+                }
+              }
+
+              strong {
+                padding: 0 0.5rem;
+                font: {
+                  style: normal;
+                  weight: 700;
+                }
+                color: $purple;
+              }
+
+              ul {
+                display: flex;
+                flex-direction: row;
+                justify-content: flex-end;
+
+                li {
+                  width: auto;
+                  font: {
+                    size: 1.8rem;
+                    style: italic;
+                    weight: 300;
+                  }
                 }
               }
             }
           }
 
-          hr {
-            height: 0.2rem;
-            margin: 0;
-            margin-bottom: 1rem;
-            border: 0;
-            background-color: #3fa9f5;
-          }
-
-          .subheader {
-            display: flex;
-            align-items: baseline;
-            margin: {
-              top: -0.5rem;
-              bottom: 0.5rem;
-            }
-
-            h4 {
-              flex: 0 0 auto;
-              margin: 0;
-              font: {
-                size: 1.2rem;
-                family: "klavika_regular";
-              }
-            }
+          .details {
+            display: if($hidden, none, flex);
 
             span {
-              flex: 1 0 auto;
-              text-align: right;
+              display: flex;
+              flex: 1 0 calc((100% / 3) * 2);
+              padding-right: 0.5rem;
+              font: {
+                size: 1.6rem;
+                style: italic;
+                weight: 300;
+                variant: normal;
+              }
+              color: $cobalt;
 
-              h6 {
-                margin: 0;
-                font: {
-                  size: 1.2rem;
-                  family: "klavika_regular";
-                }
+              em {
+                padding-left: 0.5rem;
+                font-style: normal;
+                color: $blue;
+              }
+
+              ul {
+                padding-left: 0.5rem;
+                font-style: normal;
+              }
+
+              &:first-child {
+                flex: 1 0 calc(100% / 3);
+              }
+
+              &:last-child {
+                padding-right: 0;
               }
             }
           }
@@ -241,28 +260,23 @@
             display: flex;
             flex-flow: row wrap;
             margin-bottom: 0;
-            opacity: 0.5;
-            transition: opacity 0.5s ease-in-out;
-
-            &:hover {
-              opacity: 1;
-            }
 
             li {
               flex: 0 0 auto;
               width: auto;
-              padding: 0 0.5rem;
-              margin: {
-                right: 0.5rem;
-                bottom: 0.5rem;
-              }
-              border-radius: 0.25rem;
-              font-size: 1.2rem;
-              color: #fff;
-              background-color: #3fa9f5;
+              font-size: 1.6rem;
+              color: $blue;
 
               &:last-child {
                 margin-right: 0;
+
+                &::after {
+                  content: "";
+                }
+              }
+
+              &::after {
+                content: ",\00a0";
               }
             }
           }
@@ -272,21 +286,29 @@
           }
 
           .highlights {
-            padding-left: 0;
+            padding: {
+              right: 3rem;
+              left: 3rem;
+            }
             margin-bottom: 1rem;
 
             li {
               padding-left: 2rem;
 
+              :global(.markup) {
+                display: inline;
+
+                p {
+                  display: inline;
+                }
+              }
+
               &::before {
                 display: inline;
                 padding-right: 1rem;
                 margin-left: -2rem;
-                font: {
-                  size: 1.8rem;
-                  family: "klavika_regular";
-                }
-                color: #7ac943;
+                font-size: 1.8rem;
+                color: $green;
                 content: "\BB";
               }
             }
@@ -295,133 +317,122 @@
       }
     }
 
-    #expertise {
+    .expertise {
+      .legend {
+        display: if($hidden, none, flex);
+        margin-top: 1.5rem;
+
+        li {
+          flex: 1 0 auto;
+          flex-direction: column;
+          align-content: center;
+          width: calc(100% / 5);
+          min-width: 22rem;
+          padding: 0;
+
+          > * {
+            display: flex;
+            justify-content: center;
+          }
+
+          span {
+            font: {
+              size: 1.8rem;
+              family: "Klavika";
+              style: italic;
+              variant: small-caps;
+              weight: 300;
+            }
+            color: $cobalt;
+            text-transform: lowercase;
+          }
+        }
+      }
+
       ul {
         flex: 1 1 auto;
         flex-flow: row wrap;
         justify-content: space-around;
 
         li {
-          position: relative;
           display: flex;
-          flex: 1 0 calc(20rem - #{$skill-margin * 2});
-          flex-direction: column;
-          align-items: center;
-          justify-content: center;
-          width: calc((100% / $skill-width) - #{$skill-margin * 2});
-          min-width: calc(20rem - #{$skill-margin * 2});
-          height: 5rem;
-          max-height: 5rem;
-          padding: 0.5rem;
-          margin: $skill-margin;
-          font-family: "klavika_reg_caps";
-          $color: rgba(0, 0, 0, 0.25);
-          $fill: #3fa9f5;
-          $corner: 1rem;
-          $width: 0.2rem;
-          $padding: 0;
+          flex: 1 0 calc((100% / #{$skill-width}));
+          justify-content: space-between;
+          width: calc((100% / #{$skill-width}));
+          min-width: calc(20rem);
+          padding: 0 1rem;
+          margin: 0;
+          font: {
+            family: "Klavika";
+            style: italic;
+            variant: small-caps;
+            weight: 300;
+          }
+          line-height: 3rem;
+          text-transform: lowercase;
 
-          &::before {
-            position: absolute;
-            right: $padding;
-            bottom: $padding;
-            width: $corner;
-            height: $width;
-            background: $color;
+          > span {
+            flex: 1 0 auto;
+            font-size: 2.4rem;
           }
 
-          &::after {
-            position: absolute;
-            right: $padding;
-            bottom: $padding;
-            width: $width;
-            height: $corner;
-            background: $color;
-            content: "";
-          }
-
-          div {
-            display: flex;
-            flex: 0 0 auto;
-            align-items: center;
-            justify-content: space-between;
-            width: 100%;
-            height: 2.5rem;
-
-            span {
-              display: inline-block;
-              flex: 1 0 auto;
-
-              &:last-child {
-                text-align: right;
-              }
-            }
-          }
-
-          .skill_rating {
-            font-size: 1.6rem;
-
-            div {
-              display: inline-block;
-              width: auto;
-
-              .rating {
-                .outline {
-                  color: $color;
-                  fill: currentColor;
-                }
-
-                .fill {
-                  color: $fill;
-                  fill: currentColor;
-                }
-
-                .hidden {
-                  opacity: 0;
-                }
-              }
+          .skill {
+            p {
+              margin: 0;
+              text-indent: 0;
             }
 
-            &::before {
-              position: absolute;
-              top: $padding;
-              left: $padding;
-              width: $corner;
-              height: $width;
-              background: $color;
-              content: "";
-            }
-
-            &::after {
-              position: absolute;
-              top: $padding;
-              left: $padding;
-              width: $width;
-              height: $corner;
-              background: $color;
-              content: "";
+            em {
+              color: $cobalt;
             }
           }
 
           .skill_details {
-            display: flex;
-            height: 0;
-            font-size: 1.4rem;
-            opacity: 0;
-            transition: height 0.5s, opacity 0.5s ease-in-out;
+            position: relative;
+            display: if($hidden, none, flex);
+            flex: 1 0 auto;
+            align-items: center;
+            justify-content: flex-end;
+
+            > * {
+              position: absolute;
+              flex: 1 0 auto;
+              height: 100%;
+              vertical-align: middle;
+              cursor: default;
+              transition: opacity 0.5s ease-in-out;
+              user-select: none;
+            }
+
+            span {
+              font-size: 2rem;
+            }
+
+            > :first-child {
+              opacity: 1;
+            }
+
+            > :last-child {
+              opacity: 0;
+            }
           }
 
           &:hover {
             .skill_details {
-              height: 2.5rem;
-              opacity: 1;
+              > :first-child {
+                opacity: 0;
+              }
+
+              > :last-child {
+                opacity: 1;
+              }
             }
           }
 
           &.placeholder {
             height: 0;
-            padding: 0;
-            margin: 0 $skill-margin;
+            padding: 0 1rem;
+            margin: 0;
             border: 0;
             visibility: hidden;
           }
@@ -429,11 +440,32 @@
       }
     }
 
-    #experience {
+    .experience {
       ul {
         li {
           .assignments {
             padding-left: 1rem;
+          }
+        }
+      }
+    }
+
+    .education {
+      .focus {
+        display: flex;
+        align-items: baseline;
+        margin: {
+          top: -0.5rem;
+          bottom: 0.5rem;
+        }
+
+        h4 {
+          flex: 0 0 auto;
+          margin: 0;
+          font: {
+            size: 2rem;
+            style: italic;
+            weight: 300;
           }
         }
       }
@@ -443,14 +475,11 @@
 
 @include media("<=phone") {
   $values: (
-    title-padding: 0 0 2rem 0,
-    name-size: 3.2rem,
-    name-height: 3rem,
-    title-size: 2.23rem,
-    title-height: 2.5rem,
-    content-max-width: 128rem,
-    skill-margin: 0.5rem,
-    skill-width: 1
+    scale: 0.6,
+    content-max-width: 100%,
+    skill-width: 1,
+    phone: true,
+    hidden: true
   );
 
   @include styles($values...);
@@ -458,14 +487,11 @@
 
 @include media(">=phone", "<=tablet") {
   $values: (
-    title-padding: 0 0 2rem 0,
-    name-size: 3.2rem,
-    name-height: 3rem,
-    title-size: 2.23rem,
-    title-height: 2.5rem,
-    content-max-width: 128rem,
-    skill-margin: 0.5rem,
-    skill-width: 2
+    scale: 0.6,
+    content-max-width: 100%,
+    skill-width: 2,
+    phone: false,
+    hidden: true
   );
 
   @include styles($values...);
@@ -473,14 +499,11 @@
 
 @include media(">=tablet", "<=desktop", "landscape", "retina2x") {
   $values: (
-    title-padding: 6rem 0 2rem 0,
-    name-size: 4.8rem,
-    name-height: 5rem,
-    title-size: 3.33rem,
-    title-height: 3rem,
-    content-max-width: 128rem,
-    skill-margin: 0.5rem,
-    skill-width: 4
+    scale: 1,
+    content-max-width: 100%,
+    skill-width: 4,
+    phone: false,
+    hidden: true
   );
 
   @include styles($values...);
@@ -488,14 +511,11 @@
 
 @include media(">=tablet", "<desktop") {
   $values: (
-    title-padding: 6rem 0 2rem 0,
-    name-size: 4.8rem,
-    name-height: 5rem,
-    title-size: 3.33rem,
-    title-height: 3rem,
-    content-max-width: 128rem,
-    skill-margin: 0.5rem,
-    skill-width: 4
+    scale: 1,
+    content-max-width: 100%,
+    skill-width: 4,
+    phone: false,
+    hidden: true
   );
 
   @include styles($values...);
@@ -503,14 +523,11 @@
 
 @include media(">=desktop") {
   $values: (
-    title-padding: 6rem 0 2rem 0,
-    name-size: 4.8rem,
-    name-height: 5rem,
-    title-size: 3.33rem,
-    title-height: 3rem,
+    scale: 1,
     content-max-width: 128rem,
-    skill-margin: 0.5rem,
-    skill-width: 6
+    skill-width: 3,
+    phone: false,
+    hidden: false
   );
 
   @include styles($values...);

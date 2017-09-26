@@ -1,78 +1,31 @@
+@import "~styles/colors";
+
 .rating {
-  width: auto;
-  height: 100%;
+  display: flex;
+  flex: 0 0 auto;
 
-  .Fill {
-    opacity: 0;
-  }
-}
+  button {
+    display: flex;
+    flex: 0 0 auto;
+    align-content: center;
+    padding: {
+      top: 0;
+      right: 0.25rem;
+      bottom: 0;
+      left: 0.25rem;
+    }
+    color: $chalk;
 
-.one {
-  #Fill_1 {
-    opacity: 1;
-  }
-}
+    &.starred {
+      color: $blue;
+    }
 
-.two {
-  #Fill_1 {
-    opacity: 1;
-  }
+    &:first-child {
+      padding-left: 0;
+    }
 
-  #Fill_2 {
-    opacity: 1;
-  }
-}
-
-.three {
-  #Fill_1 {
-    opacity: 1;
-  }
-
-  #Fill_2 {
-    opacity: 1;
-  }
-
-  #Fill_3 {
-    opacity: 1;
-  }
-}
-
-.four {
-  #Fill_1 {
-    opacity: 1;
-  }
-
-  #Fill_2 {
-    opacity: 1;
-  }
-
-  #Fill_3 {
-    opacity: 1;
-  }
-
-  #Fill_4 {
-    opacity: 1;
-  }
-}
-
-.five {
-  #Fill_1 {
-    opacity: 1;
-  }
-
-  #Fill_2 {
-    opacity: 1;
-  }
-
-  #Fill_3 {
-    opacity: 1;
-  }
-
-  #Fill_4 {
-    opacity: 1;
-  }
-
-  #Fill_5 {
-    opacity: 1;
+    &:last-child {
+      padding-right: 0;
+    }
   }
 }

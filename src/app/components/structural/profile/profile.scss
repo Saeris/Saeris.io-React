@@ -1,0 +1,174 @@
+@import "~include-media/dist/include-media";
+
+@mixin styles($avatar-size, $phone) {
+  .profile {
+    position: fixed;
+    background: {
+      position: center -5em;
+      image: url("@public/images/bg.jpg");
+      repeat: no-repeat;
+      attachment: fixed;
+    }
+    overflow: hidden;
+    transition: opacity 5s ease-in-out;
+
+    section {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      max-width: if($phone, 29rem, 37.5rem);
+      padding: calc(3rem + (#{$avatar-size} / 2)) 0 3rem 0;
+      margin: calc(3rem + (#{$avatar-size} / 2)) auto 1.5rem auto;
+      border-radius: 0.3rem;
+      box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.5);
+      background: #fff;
+
+      button {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        z-index: 5;
+        flex: 0 0 auto;
+        width: 3rem;
+        height: 3rem;
+        padding: 0;
+        border: none;
+        color: #9eabb3;
+        background: none;
+        cursor: pointer;
+
+        span {
+          display: flex;
+          align-content: center;
+          justify-content: center;
+        }
+
+        &:hover {
+          color: #0c0c0c;
+        }
+
+        &:focus {
+          outline: none;
+        }
+      }
+
+      .avatar-wrapper {
+        position: absolute;
+        top: calc((#{$avatar-size} / 2) * -1);
+        z-index: 4;
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        height: $avatar-size;
+
+        img {
+          flex: 0 0 auto;
+          width: $avatar-size;
+          height: $avatar-size;
+          border: calc(#{$avatar-size} / 22.5) solid #fff;
+          border-radius: $avatar-size;
+          box-shadow: inset 0 1.5px 3px 0 rgba(0, 0, 0, 0.15), 0 1.5px 3px 0 rgba(0, 0, 0, 0.15);
+        }
+      }
+
+      h1 {
+        flex: 0 0 auto;
+        margin-bottom: 1.5rem;
+        font-size: 2.2rem;
+        line-height: 1.8rem;
+      }
+
+      h2 {
+        flex: 0 0 auto;
+        margin-bottom: 1rem;
+        font: {
+          size: 1.8rem;
+          weight: normal;
+        }
+
+        i {
+          margin-right: 0.5rem;
+        }
+      }
+
+      p {
+        flex: 1 1 auto;
+        padding: 0 3rem;
+        margin-bottom: 3rem;
+        text-align: center;
+      }
+
+      ul {
+        display: if($phone, flex, none);
+        justify-content: space-around;
+        width: 100%;
+        height: 3rem;
+        padding: 0 3rem;
+
+        li {
+          display: flex;
+          flex: 0 0 auto;
+          align-items: center;
+          justify-content: center;
+          width: 3rem;
+          height: 3rem;
+
+          a {
+            display: block;
+            width: 100%;
+            height: 100%;
+            padding-top: 0;
+            color: #373a3c;
+
+            i {
+              display: inline-block;
+              width: 3rem;
+              height: 3rem;
+              padding-top: 0;
+              font-size: 3rem;
+              line-height: 3rem;
+              text-align: center;
+              vertical-align: middle;
+            }
+
+            &:hover {
+              color: #0c0c0c;
+              text-decoration: none;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@include media("<=phone") {
+  $values: (avatar-size: 18rem, phone: true);
+
+  @include styles($values...);
+}
+
+@include media(">=phone", "<=tablet") {
+  $values: (avatar-size: 18rem, phone: true);
+
+  @include styles($values...);
+}
+
+@include media(">=tablet", "<=desktop", "landscape", "retina2x") {
+  $values: (avatar-size: 18rem, phone: false);
+
+  @include styles($values...);
+}
+
+@include media(">=tablet", "<desktop", "retina2x") {
+  $values: (avatar-size: 18rem, phone: false);
+
+  @include styles($values...);
+}
+
+@include media(">=desktop") {
+  $values: (avatar-size: 18rem, phone: false);
+
+  @include styles($values...);
+}

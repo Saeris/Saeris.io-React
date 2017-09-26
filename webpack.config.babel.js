@@ -1,6 +1,6 @@
 import { join, resolve } from 'path' //eslint-disable-line
 //import util from 'util'
-import { DefinePlugin, ProvidePlugin, LoaderOptionsPlugin, HotModuleReplacementPlugin, NamedModulesPlugin, NoEmitOnErrorsPlugin, optimize } from 'webpack'
+import { DefinePlugin, ProvidePlugin, LoaderOptionsPlugin, HotModuleReplacementPlugin, NamedModulesPlugin, NoEmitOnErrorsPlugin, IgnorePlugin, optimize } from 'webpack'
 import ExtractTextPlugin from 'extract-text-webpack-plugin'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 import WebpackPwaManifest from 'webpack-pwa-manifest'
@@ -10,8 +10,9 @@ import SWPrecacheWebpackPlugin from 'sw-precache-webpack-plugin'
 import BrowserSyncPlugin from 'browser-sync-webpack-plugin'
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer'
 import DashboardPlugin from 'webpack-dashboard/plugin'
+import MinifyPlugin from "babel-minify-webpack-plugin"
 
-const { ModuleConcatenationPlugin, CommonsChunkPlugin, UglifyJsPlugin } = optimize
+const { ModuleConcatenationPlugin, CommonsChunkPlugin } = optimize
 
 const ENV = process.env.NODE_ENV && process.env.NODE_ENV.toLowerCase() || (process.env.NODE_ENV = `development`)
 const envDev = ENV === `development`
@@ -119,7 +120,7 @@ const config = {
           { loader: `css-loader`, options: {
             modules: true,
             sourceMap: envDev,
-            localIdentName: `[name]_[hash:base64:5]`,
+            localIdentName: `[local]_[hash:base64:5]`,
             importLoaders: 3
           } },
           { loader: `postcss-loader`, options: { sourceMap: envDev } },
@@ -146,7 +147,8 @@ const config = {
       { test: /\.(png|gif|jpg|cur)$/, loader: `url-loader`, query: { limit: 8192 } },
       { test: /\.woff2(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: `url-loader`, query: { limit: 10000, mimetype: `application/font-woff2` } },
       { test: /\.woff(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: `url-loader`, query: { limit: 10000, mimetype: `application/font-woff` } },
-      { test: /\.(ttf|eot|svg|otf)(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: `file-loader` },
+      { test: /\.(ttf|eot|svg|otf)(\?v=[0-9]\.[0-9]\.[0-9])?$/, exclude: /\.component\.svg$/, loader: `file-loader` },
+      { test: /\.component\.svg$/, loader: `svg-react-loader`, query: { classIdPrefix: `[local]_[hash:base64:5]` } },
       { test: /\src\/images$/, loader: `ignore-loader` }
     ]
   },
@@ -251,6 +253,7 @@ const config = {
       Promise: `core-js/fn/promise`
     }),
     new LodashModuleReplacementPlugin(),
+    new IgnorePlugin(/^\.\/locale$/, /moment$/),
     appCSS,
     vendorCSS,
     new ModuleConcatenationPlugin(),
@@ -272,6 +275,7 @@ const config = {
         new BrowserSyncPlugin({ host: host, port: port, proxy: `http://${host}:${port + 100}/` }, { reload: false })
       ]
       : []),
+    /*
     new UglifyJsPlugin({
       beautify: envDev,
       comments: envDev,
@@ -299,6 +303,26 @@ const config = {
         collapse_vars: envProd,
         reduce_vars: envProd
       }
+    }),
+    */
+    new MinifyPlugin({
+      keepFnName: envDev,
+      keepClassName: envDev,
+      booleans: envProd,
+      deadcode: true,
+      evaluate: envProd,
+      flipComparisons: envProd,
+      mangle: envProd,
+      memberExpressions: envProd,
+      mergeVars: envProd,
+      numericLiterals: envProd,
+      propertyLiterals: envProd,
+      removeConsole: envProd,
+      removeDebugger: envProd,
+      simplify: envProd,
+      simplifyComparisons: envProd,
+      typeConstructors: envProd,
+      undefinedToVoid: envProd
     }),
     ...(envDev
       ? [

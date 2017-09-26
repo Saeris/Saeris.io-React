@@ -3,7 +3,7 @@
 import { render } from "preact"
 import { AppContainer } from "react-hot-loader" //eslint-disable-line
 import { Root } from "@routes"
-import "./style/global.scss"
+import "./styles/global.scss"
 
 export const renderApp = (Component) => {
   render(

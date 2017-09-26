@@ -3,7 +3,7 @@ import { createLogger } from "redux-logger"
 import { routerReducer, routerMiddleware, routerActions } from "react-router-redux"
 import { persistStore, autoRehydrate } from "redux-persist"
 import createHistory from "history/createBrowserHistory"
-import { apollo } from "@services"
+import { apollo } from "./apollo"
 
 class Store {
   constructor() {

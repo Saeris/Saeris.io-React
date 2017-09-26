@@ -17,11 +17,10 @@
         ["react-css-modules", {
           "filetypes": {
             ".scss": {
-              "syntax": "postcss-scss",
-              "plugins": ["postcss-nested"]
+              "syntax": "postcss-scss"
             }
           },
-          "generateScopedName": "[name]_[hash:base64:5]",
+          "generateScopedName": "[local]_[hash:base64:5]",
           "webpackHotModuleReloading": false
         }],
         [ "babel-plugin-webpack-alias", { "config": "./webpack.config.babel.js" } ]
@@ -40,6 +39,15 @@
     },
     "development": {
       "plugins": [
+        ["react-css-modules", {
+          "filetypes": {
+            ".scss": {
+              "syntax": "postcss-scss"
+            }
+          },
+          "generateScopedName": "[local]_[hash:base64:5]",
+          "webpackHotModuleReloading": true
+        }],
         "react-hot-loader/babel",
         "transform-commonjs-es2015-modules",
         "transform-decorators-legacy",
@@ -47,17 +55,8 @@
         "transform-object-rest-spread",
         "transform-es2015-shorthand-properties",
         "transform-function-bind",
+        "transform-optional-chaining",
         ["transform-react-jsx", { "pragma":"h" }],
-        ["react-css-modules", {
-          "filetypes": {
-            ".scss": {
-              "syntax": "postcss-scss",
-              "plugins": ["postcss-nested"]
-            }
-          },
-          "generateScopedName": "[name]_[hash:base64:5]",
-          "webpackHotModuleReloading": true
-        }],
         "lodash"
       ],
       "presets": [
@@ -75,27 +74,27 @@
     },
     "production": {
       "plugins": [
+        ["react-css-modules", {
+          "filetypes": {
+            ".scss": {
+              "syntax": "postcss-scss"
+            }
+          },
+          "generateScopedName": "[local]_[hash:base64:5]",
+          "webpackHotModuleReloading": true
+        }],
         "transform-commonjs-es2015-modules",
         "transform-decorators-legacy",
         "transform-class-properties",
         "transform-object-rest-spread",
         "transform-es2015-shorthand-properties",
         "transform-function-bind",
+        "transform-optional-chaining",
         ["transform-react-jsx", { "pragma":"h" }],
         ["transform-runtime", {
           "helpers": false,
           "polyfill": false,
           "regenerator": true
-        }],
-        ["react-css-modules", {
-          "filetypes": {
-            ".scss": {
-              "syntax": "postcss-scss",
-              "plugins": ["postcss-nested"]
-            }
-          },
-          "generateScopedName": "[name]_[hash:base64:5]",
-          "webpackHotModuleReloading": false
         }],
         "lodash"
       ],

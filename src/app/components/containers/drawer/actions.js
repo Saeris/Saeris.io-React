@@ -4,9 +4,9 @@ export const actions = {
   DRAWER_TOGGLE: `DRAWER_TOGGLE`
 }
 
-export const addDrawer = (component, props, visible = false) => ({
-  type: actions.DRAWER_OPEN,
-  payload: { component, props, visible }
+export const addDrawer = id => ({
+  type: actions.DRAWER_ADD,
+  payload: { id }
 })
 
 export const removeDrawer = id => ({

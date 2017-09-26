@@ -1,3 +1,5 @@
-export Link from "./link/link"
-export Rating from "./rating/rating"
-export Svg from "./svg/svg"
+export { Email } from "./email"
+export { Link } from "./link"
+export { Markdown } from "./markdown"
+export { Rating } from "./rating"
+//export Svg from "./svg/svg"

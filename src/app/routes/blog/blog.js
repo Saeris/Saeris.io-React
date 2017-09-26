@@ -1,8 +1,8 @@
-import { Layout } from "@components/containers"
-import "./blog.scss"
+import Archive from "./archive"
+import Categories from "./categories"
+import Feed from "./feed"
+import Post from "./post"
+import Search from "./search"
+import Tags from "./tags"
 
-export default class Blog extends Component {
-  render() {
-    return <Layout id="blog" />
-  }
-}
+export default [Archive, Categories, Feed, Post, Search, Tags]

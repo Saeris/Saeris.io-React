@@ -1,8 +1,4 @@
-import { Layout } from "@components/containers"
-import "./projects.scss"
+import List from "./list"
+import Page from "./page"
 
-export default class Projects extends Component {
-  render() {
-    return <Layout id="projects" />
-  }
-}
+export default [List, Page]

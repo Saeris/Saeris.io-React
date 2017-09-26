@@ -1,12 +1,8 @@
 import { connect } from "react-redux"
-import { addDrawer, removeDrawer, toggleDrawer } from './actions'
-import DrawerReducer from "./reducer"
+import { addDrawer, removeDrawer, toggleDrawer } from "./actions"
+import DrawerReducer from "./reducer" // eslint-disable-line
 
-const selectors = (state, ownProps) => ({
-  id: DrawerReducer.getCurrent(state),
-  visible: id => DrawerReducer.getVisibility(state, id),
-  component: id => DrawerReducer.getComponent(state, id)
-})
+const selectors = (state, ownProps) => ({})
 
 const actions = dispatch => ({
   add: () => dispatch(addDrawer()),
@@ -15,10 +11,9 @@ const actions = dispatch => ({
 })
 
 @connect(selectors, actions)
-
 export default class Drawer extends Component {
   componentDidMount() {
-    this.props.add()
+    this.props.add(this.props.id)
   }
 
   componentWillUnmount() {
@@ -27,7 +22,7 @@ export default class Drawer extends Component {
 
   render({ children, id, toggle }) {
     return (
-      <div id={id} className={`drawer ${open ? `open` : ``}`} onClick={toggle(id)}>
+      <div id={id} className={`drawer ${open ? `open` : ``}`}>
         {children}
       </div>
     )

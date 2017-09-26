@@ -6,7 +6,7 @@ class Apollo {
 
     // Configure the client to use the api provider from our api config
     let networkInterface = createBatchingNetworkInterface({
-      uri: `https://api.github.com/graphql`,
+      uri: `http://localhost:1337/graphql`,
       batchInterval: 10
     })
 
