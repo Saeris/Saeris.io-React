@@ -1,5 +1,7 @@
 # Saeris.io-React
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/Saeris/Saeris.io-React.svg)](https://greenkeeper.io/)
+
 ## Getting Started
 
 First install project dependencies using either `yarn` or `npm install`
