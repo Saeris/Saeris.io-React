@@ -5,14 +5,14 @@ import DrawerReducer from "./reducer" // eslint-disable-line
 const selectors = (state, ownProps) => ({})
 
 const actions = dispatch => ({
-  add: () => dispatch(addDrawer()),
-  remove: () => dispatch(removeDrawer()),
-  toggle: () => dispatch(toggleDrawer())
+  add: id => dispatch(addDrawer(id)),
+  remove: id => dispatch(removeDrawer(id)),
+  toggle: id => dispatch(toggleDrawer(id))
 })
 
 @connect(selectors, actions)
 export default class Drawer extends Component {
-  componentDidMount() {
+  componentWillMount() {
     this.props.add(this.props.id)
   }
 

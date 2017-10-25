@@ -1,4 +1,8 @@
-import Home from "./home"
+import { assemble } from "@components/containers"
+
+const Home = assemble({
+  loader: () => import(`./home`)
+})
 
 export default {
   path: `/home`,

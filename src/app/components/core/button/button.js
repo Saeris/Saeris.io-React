@@ -1,4 +1,4 @@
-export default class Button extends Compnent {
+export default class Button extends Component {
   static propTypes = {
     active: PropTypes.bool,
     block: PropTypes.bool,
@@ -31,25 +31,11 @@ export default class Button extends Compnent {
   }
 
   renter({ active, block, className, cssModule, color, outline, size, tag: Tag, getRef, ...attributes }) {
-    const classes = mapToCssModules(
-      classNames(
-        className,
-        `btn`,
-        `btn${outline ? `-outline` : ``}-${color}`,
-        size ? `btn-${size}` : false,
-        block ? `btn-block` : false,
-        { active, disabled: this.props.disabled }
-      ),
-      cssModule
-    )
-
-    if (attributes.href && Tag === `button`) Tag = `a`
-
     return (
       <Tag
-        type={Tag === `button` && attributes.onClick ? `button` : undefined}
+        type={Tag === `button` && attributes.onClick && `button`}
         {...attributes}
-        className={classes}
+        className={className}
         ref={getRef}
         onClick={this.onClick}
       />

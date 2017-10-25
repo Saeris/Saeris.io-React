@@ -10,10 +10,10 @@ class Config {
       key: `9aa7f4e32ca938c496f7a3ac05d275b1`
     },
     twitch: {
-      endpoint: `https://api.twitch.tv/kraken/`,
+      endpoint: `https://api.twitch.tv/gql`,
       config: {
         headers: {
-          Accept: `application/vnd.twitchtv.v5+json`,
+          "Accept": `application/vnd.twitchtv.v5+json`,
           "Client-ID": `tkobrq6rshswesmz6jyq06i1c5d647`
         }
       }

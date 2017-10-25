@@ -1,4 +1,8 @@
-import Feed from "./feed"
+import { assemble } from "@components/containers"
+
+const Feed = assemble({
+  loader: () => import(`./feed`)
+})
 
 export default {
   path: `/blog`,

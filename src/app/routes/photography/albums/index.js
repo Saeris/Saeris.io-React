@@ -1,4 +1,8 @@
-import Albums from "./albums"
+import { assemble } from "@components/containers"
+
+const Albums = assemble({
+  loader: () => import(`./albums`)
+})
 
 export default {
   path: `/photography`,

@@ -1,113 +1,148 @@
+@import "~styles/breakpoints";
 @import "~include-media/dist/include-media";
 
-#albums {
-  .galleries {
-    $margin_width: 5.5rem;
-
+@mixin styles($scale, $max-width, $phone, $hidden) {
+  :global(#albums) {
     display: flex;
-    flex: 1 0 auto;
     flex-direction: column;
-    width: calc(100% - (#{$margin_width} * 2));
-    max-width: 128rem;
-    margin: 1.5rem $margin_width;
+    align-items: center;
+    width: 100%;
 
-    ul {
-      justify-content: center;
-    }
-
-    .album {
-      position: relative;
+    .galleries {
       display: flex;
       flex: 1 0 auto;
       flex-direction: column;
-      align-items: center;
-      justify-content: center;
       width: 100%;
-      max-width: 102.4rem;
-      margin: 1.5rem 0;
+      max-width: $max-width;
 
-      a {
-        $cut: 2.5rem;
-
-        position: relative;
-        flex: 0 0 auto;
-        clip-path: polygon($cut 0%, 100% 0%, 100% calc(100% - #{$cut}), calc(100% - #{$cut}) 100%, 0% 100%, 0% $cut);
+      ul {
+        display: flex;
+        flex: 1 0 auto;
+        flex-wrap: wrap;
+        justify-content: center;
         width: 100%;
-        overflow: hidden;
-        background-color: rgba(255, 255, 255, 0.9);
+      }
 
-        &::before {
-          position: absolute;
-          top: 0;
-          left: 0;
-          border: {
-            width: $cut $cut 0 0;
-            color: transparent;
-            style: solid;
-          }
-          content: "";
-        }
+      .album {
+        position: relative;
+        display: flex;
+        flex: 1 0 auto;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 50%;
+        padding: 0.5rem;
 
-        &::after {
-          position: absolute;
-          right: 0;
-          bottom: 0;
-          border: {
-            width: 0 0 $cut $cut;
-            color: transparent;
-            style: solid;
-          }
-          content: "";
-        }
-
-        .preview {
-          display: flex;
+        a {
+          position: relative;
           flex: 0 0 auto;
-          flex-direction: column;
-          align-items: center;
-          justify-content: center;
           width: 100%;
-          height: 30rem;
+          overflow: hidden;
 
-          img {
-            position: relative;
-            flex: 0 0 auto;
-            min-width: 100%;
-            transition: transform 0.2s ease-in-out;
-          }
-
-          h2 {
-            position: absolute;
-            bottom: 0;
+          .preview {
             display: flex;
+            flex: 0 0 auto;
+            flex-direction: column;
             align-items: center;
+            justify-content: center;
             width: 100%;
-            height: 5rem;
-            padding-left: 1.5rem;
-            margin: 0;
-            font: {
-              size: 2.2rem;
-              family: "Orbitron";
-              weight: bold;
-            }
-            color: #ebebeb;
-            text-transform: uppercase;
-            background-color: rgba(0, 0, 0, 0.3);
-            transition: color 0.2s ease-in-out;
-          }
+            height: 30rem;
 
-          &:hover {
             img {
-              transform: scale(1.05);
+              position: relative;
+              flex: 0 0 auto;
+              min-width: 100%;
             }
 
             h2 {
-              color: #fff;
-              text-decoration: none;
+              position: absolute;
+              bottom: 0;
+              display: flex;
+              align-items: center;
+              width: 100%;
+              height: 5rem;
+              padding-left: 1.5rem;
+              margin: 0;
+              font: {
+                size: 2.2rem;
+                family: "Orbitron";
+                weight: bold;
+              }
+              color: #ebebeb;
+              text-transform: uppercase;
+              background-color: rgba(0, 0, 0, 0.3);
+              transition: color 0.2s ease-in-out;
+            }
+
+            &:hover {
+              h2 {
+                color: #fff;
+                text-decoration: none;
+              }
             }
           }
         }
       }
     }
   }
+}
+
+@include media($mobile-small...) {
+  $config: (scale: 0.6, max-width: 100%, phone: true, hidden: true);
+
+  @include styles($config...);
+}
+
+@include media($mobile-medium...) {
+  $config: (scale: 0.6, max-width: 100%, phone: true, hidden: true);
+
+  @include styles($config...);
+}
+
+@include media($mobile-large...) {
+  $config: (scale: 0.6, max-width: 100%, phone: true, hidden: true);
+
+  @include styles($config...);
+}
+
+@include media($mobile-landscape...) {
+  $config: (scale: 0.6, max-width: 100%, phone: true, hidden: true);
+
+  @include styles($config...);
+}
+
+@include media($tablet-portrait...) {
+  $config: (scale: 0.6, max-width: 100%, phone: true, hidden: true);
+
+  @include styles($config...);
+}
+
+@include media($tablet-landscape...) {
+  $config: (scale: 0.6, max-width: 100%, phone: true, hidden: true);
+
+  @include styles($config...);
+}
+
+@include media($laptop...) {
+  $config: (scale: 0.6, max-width: 100%, phone: false, hidden: true);
+
+  @include styles($config...);
+}
+
+@include media($laptop-large...) {
+  $config: (scale: 1, max-width: 128rem, phone: false, hidden: true);
+
+  @include styles($config...);
+}
+
+@include media($desktop...) {
+  $config: (scale: 1, max-width: 160rem, phone: false, hidden: true);
+
+  @include styles($config...);
+}
+
+@include media($desktop-large...) {
+  $config: (scale: 1, max-width: 192rem, phone: false, hidden: false);
+
+  @include styles($config...);
 }

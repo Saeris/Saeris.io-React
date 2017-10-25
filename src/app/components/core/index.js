@@ -1,5 +1,6 @@
 export { Email } from "./email"
 export { Link } from "./link"
 export { Markdown } from "./markdown"
+export { Pic } from "./pic"
 export { Rating } from "./rating"
 //export Svg from "./svg/svg"

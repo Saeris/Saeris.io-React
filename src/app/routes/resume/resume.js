@@ -1,5 +1,5 @@
 //import Markdown from "preact-markdown"
-import { Layout } from "@components/structural"
+import { Main } from "@components/structural"
 import { Email, Link, Markdown, Rating } from "@components/core"
 import "./resume.scss"
 import defaultResume from "@public/content/resume.json"
@@ -60,7 +60,7 @@ export default class Resume extends Component {
   render({ resume }) {
     const { fullname, headline, contact, skills, jobs, projects, schools } = resume
     return (
-      <Layout id="resume">
+      <Main id="resume">
         <section id="title" styleName="title">
           <h1>{fullname}</h1>
           <h2>{headline}</h2>
@@ -241,7 +241,7 @@ export default class Resume extends Component {
               </ul>
             </section>
           )}
-      </Layout>
+      </Main>
     )
   }
 }

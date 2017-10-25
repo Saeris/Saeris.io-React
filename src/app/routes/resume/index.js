@@ -1,4 +1,8 @@
-import Resume from "./resume"
+import { assemble } from "@components/containers"
+
+const Resume = assemble({
+  loader: () => import(`./resume`)
+})
 
 export default {
   path: `/`,

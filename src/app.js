@@ -5,12 +5,12 @@ import { AppContainer } from "react-hot-loader" //eslint-disable-line
 import { Root } from "@routes"
 import "./styles/global.scss"
 
-export const renderApp = (Component) => {
+export const renderApp = Component => {
   render(
     <AppContainer>
       <Component />
     </AppContainer>,
-    document.querySelector(`#app`)
+    document.getElementById(`⚛️`)
   )
 }
 

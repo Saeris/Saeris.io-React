@@ -1,4 +1,8 @@
-import Archive from "./archive"
+import { assemble } from "@components/containers"
+
+const Archive = assemble({
+  loader: () => import(`./archive`)
+})
 
 export default {
   path: `/blog/archive`,

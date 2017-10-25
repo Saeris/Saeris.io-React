@@ -1,4 +1,8 @@
-import List from "./list"
+import { assemble } from "@components/containers"
+
+const List = assemble({
+  loader: () => import(`./list`)
+})
 
 export default {
   path: `/projects`,

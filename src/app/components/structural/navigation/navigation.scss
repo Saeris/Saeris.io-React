@@ -1,3 +1,4 @@
+@import "~styles/breakpoints";
 @import "~include-media/dist/include-media";
 
 @mixin styles( $nav-width, $avatar-size, $hidden, $landscape, $phone ) {
@@ -162,32 +163,62 @@
   }
 }
 
-@include media("<=phone") {
-  $values: (nav-width: 7.5rem, avatar-size: 3rem, hidden: true, landscape: false, phone: true);
+@include media($mobile-small...) {
+  $config: (nav-width: 7.5rem, avatar-size: 3rem, hidden: true, landscape: false, phone: true);
 
-  @include styles($values...);
+  @include styles($config...);
 }
 
-@include media(">=phone", "<=tablet") {
-  $values: (nav-width: 7.5rem, avatar-size: 3rem, hidden: true, landscape: false, phone: true);
+@include media($mobile-medium...) {
+  $config: (nav-width: 7.5rem, avatar-size: 3rem, hidden: true, landscape: false, phone: true);
 
-  @include styles($values...);
+  @include styles($config...);
 }
 
-@include media(">=tablet", "<=desktop", "landscape", "retina2x") {
-  $values: (nav-width: 25rem, avatar-size: 10rem, hidden: false, landscape: true, phone: true);
+@include media($mobile-large...) {
+  $config: (nav-width: 7.5rem, avatar-size: 3rem, hidden: true, landscape: false, phone: true);
 
-  @include styles($values...);
+  @include styles($config...);
 }
 
-@include media(">=tablet", "<=desktop") {
-  $values: (nav-width: 7.5rem, avatar-size: 3rem, hidden: true, landscape: false, phone: false);
+@include media($mobile-landscape...) {
+  $config: (nav-width: 7.5rem, avatar-size: 3rem, hidden: true, landscape: true, phone: true);
 
-  @include styles($values...);
+  @include styles($config...);
 }
 
-@include media(">=desktop") {
-  $values: (nav-width: 25rem, avatar-size: 10rem, hidden: false, landscape: false, phone: false);
+@include media($tablet-portrait...) {
+  $config: (nav-width: 7.5rem, avatar-size: 3rem, hidden: true, landscape: false, phone: true);
 
-  @include styles($values...);
+  @include styles($config...);
+}
+
+@include media($tablet-landscape...) {
+  $config: (nav-width: 7.5rem, avatar-size: 3rem, hidden: true, landscape: true, phone: true);
+
+  @include styles($config...);
+}
+
+@include media($laptop...) {
+  $config: (nav-width: 7.5rem, avatar-size: 3rem, hidden: true, landscape: false, phone: false);
+
+  @include styles($config...);
+}
+
+@include media($laptop-large...) {
+  $config: (nav-width: 7.5rem, avatar-size: 3rem, hidden: true, landscape: false, phone: false);
+
+  @include styles($config...);
+}
+
+@include media($desktop...) {
+  $config: (nav-width: 25rem, avatar-size: 10rem, hidden: false, landscape: false, phone: false);
+
+  @include styles($config...);
+}
+
+@include media($desktop-large...) {
+  $config: (nav-width: 25rem, avatar-size: 10rem, hidden: false, landscape: false, phone: false);
+
+  @include styles($config...);
 }

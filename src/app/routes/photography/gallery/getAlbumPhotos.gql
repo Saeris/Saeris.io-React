@@ -1,0 +1,36 @@
+query getAlbumPhotos($user: ID!, $slug: [String]!) {
+  user(id: $user) {
+    id
+    userId
+    albums(filter: { slug: $slug }) {
+      id
+      albumId
+      title
+      description
+      slug
+      primary {
+        id
+        images(filter: { size: [Small_320, Medium_640, Medium_800, Large, Large_1600, Large_2048] }) {
+          id
+          width
+          source
+        }
+      }
+      photos {
+        id
+        title
+        caption
+        taken
+        images(filter: { size: [Small_320, Medium_640, Medium_800] }) {
+          id
+          source
+          width
+          height
+        }
+      }
+      views
+      created
+      updated
+    }
+  }
+}

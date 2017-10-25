@@ -1,8 +1,8 @@
-import { Flickr } from "@services"
+//import { Flickr } from "@services"
 
 export default class Photo {
   constructor(photo) {
-    this.api = Flickr
+    //this.api = Flickr
     this.id = photo.id
     this.title = photo.title
     this.exif = () => this.getExifData()
@@ -48,7 +48,7 @@ export default class Photo {
     this.exif = await this.api.getPhotoExif(this.id)
   }
 
-  getBoxSize() {}
+  //getBoxSize() {}
 
   aspectRatio = (a, b) => (b === 0 ? a : this.aspectRatio(b, a % b))
 }

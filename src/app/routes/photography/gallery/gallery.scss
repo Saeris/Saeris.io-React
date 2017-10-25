@@ -1,0 +1,135 @@
+@import "~styles/breakpoints";
+//@import "~styles/mixins/justified";
+@import "~include-media/dist/include-media";
+
+// https://codepen.io/g12n/pen/xsAdm
+
+///*
+@mixin photo($width: 1, $height: 1, $min: 90px, $max: 320px) {
+  $ratio: $width / $height;
+
+  :global(.photo-#{$width}by#{$height}) {
+    @extend %photo;
+
+    flex: $ratio 0 calc(#{$min} * #{$ratio});
+    max: {
+      width: $max * $ratio;
+      height: $max;
+    }
+
+    &::before {
+      padding-top: calc(100% / #{$ratio});
+    }
+  }
+}
+//*/
+
+@mixin styles($scale, $max-width, $phone, $hidden) {
+  :global(#gallery) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+
+    .primary {
+      display: flex;
+      flex: 0 0 auto;
+      flex-direction: column;
+      align-content: center;
+      justify-content: center;
+      width: 100%;
+      max-width: $max-width;
+    }
+
+    .photos {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-start;
+      width: 100%;
+      max-width: $max-width;
+
+      %photo {
+        position: relative;
+        padding: 2px;
+
+        &::before {
+          display: block;
+          content: "";
+        }
+      }
+
+      @include photo(9,16);
+      @include photo(3,5);
+      @include photo(2,3);
+      @include photo(3,4);
+      @include photo(4,5);
+      @include photo(1,1);
+      @include photo(5,4);
+      @include photo(4,3);
+      @include photo(3,2);
+      @include photo(5,3);
+      @include photo(16,9);
+      @include photo(3,1);
+    }
+  }
+}
+
+@include media($mobile-small...) {
+  $config: (scale: 0.6, max-width: 100%, phone: true, hidden: true);
+
+  @include styles($config...);
+}
+
+@include media($mobile-medium...) {
+  $config: (scale: 0.6, max-width: 100%, phone: true, hidden: true);
+
+  @include styles($config...);
+}
+
+@include media($mobile-large...) {
+  $config: (scale: 0.6, max-width: 100%, phone: true, hidden: true);
+
+  @include styles($config...);
+}
+
+@include media($mobile-landscape...) {
+  $config: (scale: 0.6, max-width: 100%, phone: true, hidden: true);
+
+  @include styles($config...);
+}
+
+@include media($tablet-portrait...) {
+  $config: (scale: 0.6, max-width: 100%, phone: true, hidden: true);
+
+  @include styles($config...);
+}
+
+@include media($tablet-landscape...) {
+  $config: (scale: 0.6, max-width: 100%, phone: true, hidden: true);
+
+  @include styles($config...);
+}
+
+@include media($laptop...) {
+  $config: (scale: 0.6, max-width: 100%, phone: false, hidden: true);
+
+  @include styles($config...);
+}
+
+@include media($laptop-large...) {
+  $config: (scale: 1, max-width: 128rem, phone: false, hidden: true);
+
+  @include styles($config...);
+}
+
+@include media($desktop...) {
+  $config: (scale: 1, max-width: 160rem, phone: false, hidden: true);
+
+  @include styles($config...);
+}
+
+@include media($desktop-large...) {
+  $config: (scale: 1, max-width: 192rem, phone: false, hidden: false);
+
+  @include styles($config...);
+}

@@ -7,6 +7,10 @@ class DrawerReducer {
     drawers: []
   }
 
+  constructor() {
+    this.name = `drawer`
+  }
+
   reducer = (state = this.initialState, action) => {
     const { type, payload } = action
     switch (type) {
@@ -21,28 +25,36 @@ class DrawerReducer {
     }
   }
 
-  addDrawer = (state, id) => (state.drawers.some(drawer => drawer.id === id) ? state.drawers : [...state.drawers, id])
+  addDrawer(state, id) {
+    const drawers = this.getDrawers(state)
+    if (drawers.some(drawer => drawer.id === id)) return drawers
+    return [...drawers, { id, visible: true }]
+  }
 
-  removeDrawer = (state, id) => state.filter(drawer => drawer.id !== id)
+  removeDrawer(state, id) {
+    this.getDrawers(state).filter(drawer => drawer.id !== id)
+  }
 
   toggleDrawer = (state, id) => {
     const drawers = this.getDrawers(state)
     const target = drawers.find(drawer => drawer.id === id)
-    if (!!target) target.visible = !target.visible
+    if (target) target.visible = !target.visible
     return [...drawers]
   }
 
-  getDrawers = state => state.drawers
+  getDrawers(state) {
+    return state[this.name]?.drawers || []
+  }
 
   getDrawerByID = (state, id) => {
-    const drawer = state.drawer.drawers[id]
-    if (!!drawer) return drawer
+    const drawer = this.getDrawers(state)[id]
+    if (drawer) return drawer
     return null
   }
 
   getVisibility = (state, id) => {
     const drawer = this.getDrawerByID(state, id)
-    if (!!drawer) return drawer.visibility
+    if (drawer) return drawer.visibility
     return false
   }
 }

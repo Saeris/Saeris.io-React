@@ -5,7 +5,7 @@ const toSearchString = (searchParams = {}) =>
     .map(key => `${key}=${encodeURIComponent(searchParams[key])}`)
     .join(`&`)
 
-const createMailtoLink = (email, headers) => `mailto:${email}${!!headers ? `?${toSearchString(headers)}` : ``}`
+const createMailtoLink = (email, headers) => `mailto:${email}${headers ? `?${toSearchString(headers)}` : ``}`
 
 export default class Email extends Component {
   static propTypes = {

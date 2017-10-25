@@ -1,8 +1,9 @@
 @import "~styles/colors";
+@import "~styles/breakpoints";
 @import "~styles/mixins/text-gradient";
 @import "~include-media/dist/include-media";
 
-@mixin styles($scale, $content-max-width, $skill-width, $phone, $hidden) {
+@mixin styles($scale, $max-width, $skill-width, $phone, $hidden) {
   :global(#resume) {
     display: flex;
     flex-direction: column;
@@ -16,7 +17,7 @@
       align-content: center;
       justify-content: center;
       width: 100%;
-      max-width: $content-max-width;
+      max-width: $max-width;
       padding: if($phone, 1rem 0 1rem 0, 6rem 0 2rem 0);
       text-align: center;
 
@@ -74,7 +75,7 @@
             }
 
             i {
-              margin-right: 1rem;
+              padding-right: 1rem;
               font-size: 2.6rem;
               color: $purple;
             }
@@ -93,7 +94,7 @@
       flex: 1 0 auto;
       flex-direction: column;
       width: 100%;
-      max-width: $content-max-width;
+      max-width: $max-width;
       padding: if($phone, 0 1rem, 1rem 2rem);
       font-family: "Klavika";
 
@@ -225,7 +226,7 @@
 
             span {
               display: flex;
-              flex: 1 0 calc((100% / 3) * 2);
+              flex: 1 0 70%;
               padding-right: 0.5rem;
               font: {
                 size: 1.6rem;
@@ -247,7 +248,7 @@
               }
 
               &:first-child {
-                flex: 1 0 calc(100% / 3);
+                flex: 1 0 30%;
               }
 
               &:last-child {
@@ -259,6 +260,7 @@
           .tags {
             display: flex;
             flex-flow: row wrap;
+            width: auto;
             margin-bottom: 0;
 
             li {
@@ -268,7 +270,7 @@
               color: $blue;
 
               &:last-child {
-                margin-right: 0;
+                padding-right: 0;
 
                 &::after {
                   content: "";
@@ -305,8 +307,10 @@
 
               &::before {
                 display: inline;
-                padding-right: 1rem;
-                margin-left: -2rem;
+                padding: {
+                  right: 1rem;
+                  left: -2rem;
+                }
                 font-size: 1.8rem;
                 color: $green;
                 content: "\BB";
@@ -473,62 +477,62 @@
   }
 }
 
-@include media("<=phone") {
-  $values: (
-    scale: 0.6,
-    content-max-width: 100%,
-    skill-width: 1,
-    phone: true,
-    hidden: true
-  );
+@include media($mobile-small...) {
+  $values: (scale: 0.6, max-width: 100%, skill-width: 1, phone: true, hidden: true);
 
   @include styles($values...);
 }
 
-@include media(">=phone", "<=tablet") {
-  $values: (
-    scale: 0.6,
-    content-max-width: 100%,
-    skill-width: 2,
-    phone: false,
-    hidden: true
-  );
+@include media($mobile-medium...) {
+  $values: (scale: 0.6, max-width: 100%, skill-width: 1, phone: true, hidden: true);
 
   @include styles($values...);
 }
 
-@include media(">=tablet", "<=desktop", "landscape", "retina2x") {
-  $values: (
-    scale: 1,
-    content-max-width: 100%,
-    skill-width: 4,
-    phone: false,
-    hidden: true
-  );
+@include media($mobile-large...) {
+  $values: (scale: 0.6, max-width: 100%, skill-width: 1, phone: true, hidden: true);
 
   @include styles($values...);
 }
 
-@include media(">=tablet", "<desktop") {
-  $values: (
-    scale: 1,
-    content-max-width: 100%,
-    skill-width: 4,
-    phone: false,
-    hidden: true
-  );
+@include media($mobile-landscape...) {
+  $values: (scale: 0.8, max-width: 100%, skill-width: 1, phone: true, hidden: true);
 
   @include styles($values...);
 }
 
-@include media(">=desktop") {
-  $values: (
-    scale: 1,
-    content-max-width: 128rem,
-    skill-width: 3,
-    phone: false,
-    hidden: false
-  );
+@include media($tablet-portrait...) {
+  $values: (scale: 0.6, max-width: 100%, skill-width: 2, phone: false, hidden: true);
+
+  @include styles($values...);
+}
+
+@include media($tablet-landscape...) {
+  $values: (scale: 0.8, max-width: 100%, skill-width: 3, phone: false, hidden: true);
+
+  @include styles($values...);
+}
+
+@include media($laptop...) {
+  $values: (scale: 0.8, max-width: 100%, skill-width: 2, phone: false, hidden: true);
+
+  @include styles($values...);
+}
+
+@include media($laptop-large...) {
+  $values: (scale: 1, max-width: 128rem, skill-width: 3, phone: false, hidden: false);
+
+  @include styles($values...);
+}
+
+@include media($desktop...) {
+  $values: (scale: 1, max-width: 160rem, skill-width: 3, phone: false, hidden: false);
+
+  @include styles($values...);
+}
+
+@include media($desktop-large...) {
+  $values: (scale: 1, max-width: 192rem, skill-width: 4, phone: false, hidden: false);
 
   @include styles($values...);
 }

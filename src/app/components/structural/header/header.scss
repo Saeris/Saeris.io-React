@@ -1,10 +1,11 @@
+@import "~styles/breakpoints";
 @import "~include-media/dist/include-media";
 
 @mixin styles($hidden) {
-  .appHeader {
+  :global(#appHeader) {
     position: absolute;
     z-index: 20;
-    display: flex;
+    display: if($hidden, none, flex);
     flex: 1 0 auto;
     justify-content: space-between;
     width: 100%;
@@ -81,37 +82,61 @@
   }
 }
 
-@include media("<=phone") {
+@include media($mobile-small...) {
   $values: (hidden: false);
 
   @include styles($values...);
 }
 
-@include media(">=phone", "<=tablet") {
+@include media($mobile-medium...) {
   $values: (hidden: false);
 
   @include styles($values...);
 }
 
-@include media(">=tablet", "<=desktop", "landscape", "retina2x") {
+@include media($mobile-large...) {
+  $values: (hidden: false);
+
+  @include styles($values...);
+}
+
+@include media($mobile-landscape...) {
   $values: (hidden: true);
 
   @include styles($values...);
 }
 
-@include media(">=tablet", "<desktop") {
+@include media($tablet-portrait...) {
+  $values: (hidden: false);
+
+  @include styles($values...);
+}
+
+@include media($tablet-landscape...) {
   $values: (hidden: true);
 
   @include styles($values...);
 }
 
-@include media(">=tablet", "<=desktop") {
+@include media($laptop...) {
   $values: (hidden: true);
 
   @include styles($values...);
 }
 
-@include media(">=desktop") {
+@include media($laptop-large...) {
+  $values: (hidden: true);
+
+  @include styles($values...);
+}
+
+@include media($desktop...) {
+  $values: (hidden: true);
+
+  @include styles($values...);
+}
+
+@include media($desktop-large...) {
   $values: (hidden: true);
 
   @include styles($values...);

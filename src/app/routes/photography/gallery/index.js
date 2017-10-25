@@ -1,7 +1,11 @@
-import Gallery from "./gallery"
+import { assemble } from "@components/containers"
+
+const Gallery = assemble({
+  loader: () => import(`./gallery`)
+})
 
 export default {
-  path: `/photography/:id`,
+  path: `/photography/:slug`,
   name: `gallery`,
   title: `Gallery`,
   component: Gallery,

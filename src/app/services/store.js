@@ -1,16 +1,15 @@
 import { createStore, combineReducers, compose, applyMiddleware } from "redux"
 import { createLogger } from "redux-logger"
 import { routerReducer, routerMiddleware, routerActions } from "react-router-redux"
-import { persistStore, autoRehydrate } from "redux-persist"
+import { persistStore, persistReducer } from "redux-persist"
+import storage from "redux-persist/es/storage"
 import createHistory from "history/createBrowserHistory"
-import { apollo } from "./apollo"
 
 class Store {
   constructor() {
     this.history = createHistory()
-    this.apollo = apollo.client
     this.state = this.configureStore()
-    persistStore(this.state)
+    this.persistor = persistStore(this.state)
     this.state.dispatch({ type: `INIT_STATE` })
   }
 
@@ -19,23 +18,20 @@ class Store {
     : compose
 
   createReducer(asyncReducers) {
-    return combineReducers({
-      apollo: this.apollo.reducer(),
-      router: routerReducer,
-      ...asyncReducers
-    })
+    return persistReducer(
+      { key: `root`, storage },
+      combineReducers({
+        router: routerReducer,
+        ...asyncReducers
+      })
+    )
   }
 
   configureStore() {
     const loggerMiddleware = createLogger()
     const store = createStore(
       this.createReducer(),
-      this.composeEnhancers(
-        applyMiddleware(this.apollo.middleware()),
-        applyMiddleware(routerMiddleware(this.history)),
-        autoRehydrate(),
-        applyMiddleware(loggerMiddleware)
-      )
+      this.composeEnhancers(applyMiddleware(routerMiddleware(this.history)), applyMiddleware(loggerMiddleware))
     )
     store.asyncReducers = {}
     return store
@@ -49,17 +45,12 @@ class Store {
   }
 }
 
+export const store = new Store()
+
 export const Reducer = Class =>
   class extends Class {
     constructor(...args) {
       super(...args)
-      this.addToStore()
-    }
-
-    addToStore = () => {
-      const name = super.constructor.name.toLowerCase().replace(`reducer`, ``)
-      store.addReducer(name, this.reducer)
+      store.addReducer(this.name, this.reducer)
     }
   }
-
-export const store = new Store()

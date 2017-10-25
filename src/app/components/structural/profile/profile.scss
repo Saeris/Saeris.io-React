@@ -1,3 +1,4 @@
+@import "~styles/breakpoints";
 @import "~include-media/dist/include-media";
 
 @mixin styles($avatar-size, $phone) {
@@ -143,32 +144,62 @@
   }
 }
 
-@include media("<=phone") {
-  $values: (avatar-size: 18rem, phone: true);
+@include media($mobile-small...) {
+  $config: (avatar-size: 18rem, phone: true);
 
-  @include styles($values...);
+  @include styles($config...);
 }
 
-@include media(">=phone", "<=tablet") {
-  $values: (avatar-size: 18rem, phone: true);
+@include media($mobile-medium...) {
+  $config: (avatar-size: 18rem, phone: true);
 
-  @include styles($values...);
+  @include styles($config...);
 }
 
-@include media(">=tablet", "<=desktop", "landscape", "retina2x") {
-  $values: (avatar-size: 18rem, phone: false);
+@include media($mobile-large...) {
+  $config: (avatar-size: 18rem, phone: true);
 
-  @include styles($values...);
+  @include styles($config...);
 }
 
-@include media(">=tablet", "<desktop", "retina2x") {
-  $values: (avatar-size: 18rem, phone: false);
+@include media($mobile-landscape...) {
+  $config: (avatar-size: 18rem, phone: true);
 
-  @include styles($values...);
+  @include styles($config...);
 }
 
-@include media(">=desktop") {
-  $values: (avatar-size: 18rem, phone: false);
+@include media($tablet-portrait...) {
+  $config: (avatar-size: 18rem, phone: false);
 
-  @include styles($values...);
+  @include styles($config...);
+}
+
+@include media($tablet-landscape...) {
+  $config: (avatar-size: 18rem, phone: false);
+
+  @include styles($config...);
+}
+
+@include media($laptop...) {
+  $config: (avatar-size: 18rem, phone: false);
+
+  @include styles($config...);
+}
+
+@include media($laptop-large...) { // Laptop Large
+  $config: (avatar-size: 18rem, phone: false);
+
+  @include styles($config...);
+}
+
+@include media($desktop...) {
+  $config: (avatar-size: 18rem, phone: false);
+
+  @include styles($config...);
+}
+
+@include media($desktop-large...) {
+  $config: (avatar-size: 18rem, phone: false);
+
+  @include styles($config...);
 }

@@ -1,4 +1,8 @@
-import Err from "./error"
+import { assemble } from "@components/containers"
+
+const Err = assemble({
+  loader: () => import(`./error`)
+})
 
 export default {
   path: `/error`,

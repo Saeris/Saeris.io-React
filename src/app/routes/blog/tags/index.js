@@ -1,4 +1,8 @@
-import Tags from "./tags"
+import { assemble } from "@components/containers"
+
+const Tags = assemble({
+  loader: () => import(`./tags`)
+})
 
 export default {
   path: `/blog/tags`,

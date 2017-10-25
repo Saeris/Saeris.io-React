@@ -1,4 +1,8 @@
-import Categories from "./categories"
+import { assemble } from "@components/containers"
+
+const Categories = assemble({
+  loader: () => import(`./categories`)
+})
 
 export default {
   path: `/blog/categories`,

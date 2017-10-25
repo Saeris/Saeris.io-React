@@ -1,0 +1,20 @@
+query getAlbums($user: ID!) {
+  user(id: $user) {
+    id
+    albums {
+      id
+      albumId
+      title
+      description
+      slug
+      primary {
+        id
+        images(filter: { size: [Small_320, Medium_640, Medium_800, Large, Large_1600, Large_2048] }) {
+          id
+          width
+          source
+        }
+      }
+    }
+  }
+}

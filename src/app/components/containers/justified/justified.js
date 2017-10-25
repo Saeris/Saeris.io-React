@@ -1,78 +1,101 @@
-import justifiedLayout from "justified-layout"
-import { take, zip } from "lodash"
+import { Pic } from "@components/core"
 
-const Style = { position: `relative` }
+const round = (value, decimals) => Number(Math.round(`${value}e${decimals}e-${decimals}`))
 
-export default class JustifiedLayout extends Component {
-  static propTypes = {
-    boxSpacing: PropTypes.oneOfType([
-      PropTypes.number,
-      PropTypes.shape({
-        horizontal: PropTypes.number.isRequired,
-        vertical: PropTypes.number.isRequired
-      })
-    ]),
-    children: PropTypes.node,
-    containerPadding: PropTypes.oneOfType([
-      PropTypes.number,
-      PropTypes.shape({
-        bottom: PropTypes.number.isRequired,
-        left: PropTypes.number.isRequired,
-        right: PropTypes.number.isRequired,
-        top: PropTypes.number.isRequired
-      })
-    ]),
-    containerWidth: PropTypes.number,
-    forceAspectRation: PropTypes.oneOfType([PropTypes.boolean, PropTypes.number]),
-    fullWidthBreakoutRowCadence: PropTypes.oneOfType([PropTypes.boolean, PropTypes.number]),
-    maxNumRows: PropTypes.number,
-    showWidows: PropTypes.bool,
-    targetRowHeight: PropTypes.number,
-    targetRowHeightTolerance: PropTypes.number,
-    widowLayoutStyle: PropTypes.string
+const ratio = ({ width, height }) => width / height
+
+const computeSizes = ({ photos, columns, width, margin }) => {
+  if (!width) return []
+
+  const rows = photos.reduce((acc, cell, i) => {
+    const row = Math.floor(i / columns)
+    acc[row] = acc[row] ? [...acc[row], cell] : [cell]
+    return acc
+  }, [])
+
+  const rowsWithSizes = rows.map((row, rowIndex) => {
+    const totalRatio = row.reduce((result, photo) => result + ratio(photo), 0)
+    const rowWidth = width - row.length * (margin * 2)
+    const height =
+      rowIndex !== rows.length - 1 || row.length > 1 ? rowWidth / totalRatio : rowWidth / columns / totalRatio
+
+    return row.map(photo => ({
+      ...photo,
+      height: round(height, 1),
+      width: round(height * ratio(photo), 1)
+    }))
+  })
+  return rowsWithSizes.reduce((acc, row) => [...acc, ...row], [])
+}
+
+export default class Justified extends React.Component {
+  propTypes = {
+    columns: PropTypes.number,
+    margin: PropTypes.number
   }
 
   static defaultProps = {
-    boxSpacing: 10,
-    containerPadding: 10,
-    containerWidth: 1060,
-    forceAspectRation: false,
-    fullWidthBreakoutRowCadence: false,
-    maxNumRows: Number.POSITIVE_INFINITY,
-    showWidows: true,
-    targetRowHeight: 320,
-    targetRowHeightTolerance: 0.25,
-    widowLayoutStyle: `left`
+    columns: 3,
+    margin: 2
   }
 
-  extractDimension({ props }) {
-    if (!props) return 0
-
-    if (props.aspectRatio) return props.aspectRatio
-
-    return { height: props.style.height, width: props.style.width }
+  constructor() {
+    super()
+    this.state = {
+      containerWidth: 0
+    }
+    this.handleResize = this.handleResize.bind(this)
+    this.handleClick = this.handleClick.bind(this)
   }
 
-  normalizeDimension = (dimension) => {
-    if (isNumber(dimension)) return dimension
-    if (dimension.height && dimension.width) return dimension.width / dimension.height
-    return 0
+  componentDidMount() {
+    this.setState({ containerWidth: Math.floor(this._gallery.clientWidth) })
+    window.addEventListener(`resize`, this.handleResize)
   }
 
-  render({ children, style, ...config }) {
-    const childDims = React.Children.map(children, this.extractDimension).map(this.normalizeDimension)
+  componentDidUpdate() {
+    if (this._gallery.clientWidth !== this.state.containerWidth) {
+      this.setState({ containerWidth: Math.floor(this._gallery.clientWidth) })
+    }
+  }
 
-    const { containerHeight, boxes } = justifiedLayout(childDims, config)
-    const elementLayout = zip(take(children, boxes.length), boxes)
+  shouldComponentUpdate() {
+    return true
+  }
 
+  componentWillUnmount() {
+    window.removeEventListener(`resize`, this.handleResize, false)
+  }
+
+  handleResize(e) {
+    this.setState({ containerWidth: Math.floor(this._gallery.clientWidth) })
+  }
+
+  handleClick(event, { index }) {
+    const { photos, onClick } = this.props
+    onClick(event, {
+      index,
+      photo: photos[index],
+      previous: photos[index - 1] || null,
+      next: photos[index + 1] || null
+    })
+  }
+
+  render({ photos, columns, onClick }) {
+    const width = this.state.containerWidth - 1
+    const thumbs = computeSizes({ width, columns, photos })
     return (
-      <div style={{ ...Style, ...style, height: containerHeight, width: this.props.containerWidth }}>
-        {elementLayout.map(([element, layout]) =>
-          React.cloneElement(element, {
-            ...element.props,
-            style: { ...element.props.style, position: `absolute`, ...layout }
-          })
-        )}
+      <div className="react-photo-gallery--gallery">
+        <div>
+          {thumbs.map(photo => (
+            <Pic
+              src={photo.images.map(img => `${img.source} ${img.width}w`)}
+              sizes={photo.images.map(
+                (img, i, arr) => (i < arr.length - 1 ? `(max-width: ${img.width}px) 100%` : `100%`)
+              )}
+            />
+          ))}
+        </div>
       </div>
     )
   }

@@ -1,28 +1,40 @@
-import { Layout } from "@components/structural"
-import { Link } from "@components/core"
+import { Main } from "@components/structural"
+import { NavLink } from "react-router-dom"
+import { Pic } from "@components/core"
+import getAlbums from "./getAlbums.gql"
 import "./albums.scss"
 
-const selectors = (state, ownProps) => ({})
-
-const actions = dispatch => ({})
-
-@connect(selectors, actions)
+@graphql(getAlbums, {
+  options: props => ({
+    variables: { user: `146688070@N05` },
+    fetchPolicy: `cache-and-network`
+  }),
+  props: ({ data: { loading, user } }) => ({
+    loading,
+    user
+  })
+})
 export default class Albums extends Component {
-  render({ albums }) {
+  render({ user, loading }) {
     return (
-      <Layout id="albums">
-        <section id="galleries">
-          <h1>Woo I'm a list of Albums!</h1>
+      <Main id="albums">
+        <section styleName="galleries">
           <ul>
-            {!!albums &&
-              albums.map(({ slug, primary, title, description }) => (
-                <li className="album">
-                  <Link href={`/photography/${slug}`}>
-                    <div className="preview">
-                      <img src={primary.large} />
+            {!loading &&
+              !!user.albums &&
+              user.albums.map(({ slug, title, primary, description }) => (
+                <li styleName="album">
+                  <NavLink to={`/photography/${slug}`}>
+                    <div styleName="preview">
+                      <Pic
+                        src={primary.images.map(img => `${img.source} ${img.width}w`)}
+                        sizes={primary.images.map(
+                          (img, i, arr) => (i < arr.length - 1 ? `(max-width: ${img.width}px) 100%` : `100%`)
+                        )}
+                      />
                       <h2>{title}</h2>
                     </div>
-                  </Link>
+                  </NavLink>
                   {!!description && (
                     <div className="description">
                       <p>{description}</p>
@@ -32,7 +44,7 @@ export default class Albums extends Component {
               ))}
           </ul>
         </section>
-      </Layout>
+      </Main>
     )
   }
 }

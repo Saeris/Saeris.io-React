@@ -11,7 +11,9 @@ export default class Svg extends Component {
       const contents = fragment.select(`svg`)
       let attributes = { preserveAspectRatio: `xMidYMid meet` }
       let attr = [].slice.call(contents.node.attributes)
-      attr.forEach(attribute => (attributes[attribute.name] = attribute.value))
+      attr.forEach(({ name, value }) => {
+        attributes[name] = value
+      })
       let children = [].slice.call(contents.node.children)
       children.forEach(child => svg.append(child))
       svg.attr(attributes)
@@ -28,7 +30,12 @@ export default class Svg extends Component {
 
   render({ children, classes, ...props }) {
     return (
-      <svg ref={el => (this.svg = el)} {...props}>
+      <svg
+        ref={el => {
+          this.svg = el
+        }}
+        {...props}
+      >
         {children}
       </svg>
     )

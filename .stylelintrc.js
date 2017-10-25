@@ -480,7 +480,8 @@ module.exports = {
         'css-gradients',
         'css-textshadow',
         'viewport-units',
-        'outline'
+        'outline',
+        'user-select-none'
       ]
     }]
   }

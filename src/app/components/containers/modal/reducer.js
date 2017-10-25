@@ -8,6 +8,10 @@ class ModalReducer {
     modals: []
   }
 
+  constructor() {
+    this.name = `modal`
+  }
+
   reducer = (state = this.initialState, action) => {
     const { type, payload } = action
     switch (type) {
@@ -22,37 +26,46 @@ class ModalReducer {
     }
   }
 
-  addModal = (state, payload) =>
-    state.modals.some(modal => modal.id === payload.id) ? state.modals : [...state.modals, payload]
+  addModal(state, payload) {
+    const modals = this.getModals(state)
+    if (modals.some(modal => modal.id === payload.id)) return modals
+    return [...modals, payload]
+  }
 
-  removeModal = (state, id) => state.filter(modal => modal.id !== id)
+  removeModal(state, id) {
+    this.getModals(state).filter(modal => modal.id !== id)
+  }
 
   toggleModal = (state, id) => {
     const modals = this.getModals(state)
     const target = modals.find(modal => modal.id === id)
-    if (!!target) target.visible = !target.visible
+    if (target) target.visible = !target.visible
     return [...modals]
   }
 
-  getCurrent = state => state.modal.current
+  getCurrent(state) {
+    return state[this.name].current
+  }
 
-  getModals = state => state.modal.modals
+  getModals(state) {
+    return state[this.name].modals
+  }
 
-  getModalByID = (state, id) => {
-    const modal = state.modal.modals[id]
-    if (!!modal) return modal
+  getModalByID(state, id) {
+    const modal = this.getModals(state)[id]
+    if (modal) return modal
     return null
   }
 
   getVisibility = (state, id) => {
     const modal = this.getModalByID(state, id)
-    if (!!modal) return modal.visibility
+    if (modal) return modal.visibility
     return false
   }
 
   getComponent = (state, id) => {
     const modal = this.getModalByID(state, id)
-    if (!!modal) return modal.component
+    if (modal) return modal.component
     return null
   }
 }

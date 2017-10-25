@@ -1,4 +1,8 @@
-import Search from "./search"
+import { assemble } from "@components/containers"
+
+const Search = assemble({
+  loader: () => import(`./search`)
+})
 
 export default {
   path: `/blog/search`,

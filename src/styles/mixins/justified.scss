@@ -1,0 +1,124 @@
+//@import "flex";
+@import "~mathsass/dist/math";
+@import "~compass-mixins/lib/compass";
+$container-class: "photo" !default;
+$min-angle: 18 !default;
+$max-angle: 70 !default;
+$line-min-height: 60px !default;
+$line-max-height: 200px !default;
+
+//===========================================
+// function calculated ratio from given angle
+//===========================================
+
+@function ratiofromangle($deg) {
+  $height: 100000;
+  $width: 10000;
+
+  @error $deg;
+
+  @if unitless($deg) {
+    $width: #{$height} * tan(#{$deg} * (pi() / 180));
+  } @else {
+    $width: #{$height} * tan(#{$deg});
+  }
+  $ratio: $height / $width;
+
+  @return $ratio;
+}
+
+//============================================
+// Mixins to calculate values fpr Photo-Elements
+//============================================
+
+@mixin photo-element($ratio) {
+  flex: {
+    //flex grow set to ratio to defive the with of the element
+    grow: $ratio;
+    //flex-basis is needed to cause elements to wrap
+    basis: $line-min-height * $ratio;
+  }
+  //restrict maximum scale to avoid giants
+  max: {
+    width: $line-max-height * $ratio;
+    height: $line-max-height;
+  }
+
+  &::before {
+    //padding fot he height the element in right aspect ratio
+    padding-top: 100% / $ratio;
+  }
+}
+
+@mixin photo($width:1, $height:1) {
+  //calculate the ratio
+  $ratio: $width / $height;
+  // class-name containing with and height
+  .#{$container-class}-#{$width}by#{$height} {
+    @include photo-element($ratio);
+  }
+}
+
+@mixin photo-angle($angle:45, $ratio:1) {
+  //calculate the ratio
+  $ratio: ratiofromangle(#{$angle});
+  // class-name containing angle
+  .#{$container-class}-#{$angle} {
+    @include photo-element($ratio);
+  }
+}
+
+//===========================================
+// Settings for JIG-Container and JIG-Element
+//===========================================
+
+.#{$container-class} {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-start;
+  //basic styling
+  padding: 5px;
+  background: #ddd;
+}
+
+%photo-element {
+  position: relative;
+  margin: 5px;
+  background: {
+    color: #efefef;
+    size: cover;
+  }
+  //generated content for aspect ratio
+  &::before {
+    display: block;
+    content: "";
+  }
+}
+
+.#{$container-class} > [class^="#{$container-class}"] {
+  @extend %photo-element;
+}
+
+//=========================================
+// generate degree-classes
+//=========================================
+
+// classes from min to max
+@for $i from $min-angle through $max-angle {
+  @include photo-angle($i);
+}
+
+// extend classes lower or higher than min and max
+@for $angle from 1 through 89 {
+  @if ($angle < $min-angle) {
+    #{$container-class}-#{$angle} {
+      @extend .#{$container-class}-#{$min-angle};
+    }
+  }
+
+  @if ($angle > $max-angle) {
+    #{$container-class}-#{$angle} {
+      @extend .#{$container-class}-#{$max-angle};
+    }
+  }
+}

@@ -8,18 +8,19 @@
 export default showdown => [
   {
     type: `lang`,
-    regex: /\^\[((?:\[[^\]]*]|[^\[\]])*)]()[ \t]*\([ \t]?([\S]+?(?:\([\S]*?\)[\S]*?)?)(?:[ \t]*((["'])([^"]*?)\5))?[ \t]?\)/g,
+    regex: /\^\[((?:\[[^\]]*]|[^[\]])*)]()[ \t]*\([ \t]?([\S]+?(?:\([\S]*?\)[\S]*?)?)(?:[ \t]*((["'])([^"]*?)\5))?[ \t]?\)/g,
     replace: (wholeMatch, linkText, linkId, url, m5, m6, title) => {
-      if (showdown.helper.isUndefined(title)) title = ``
+      let linkTitle = title
+      if (showdown.helper.isUndefined(title)) linkTitle = ``
+      let src = url
+      src = src.replace(showdown.helper.regexes.asteriskAndDash, showdown.helper.escapeCharactersCallback)
 
-      url = url.replace(showdown.helper.regexes.asteriskAndDash, showdown.helper.escapeCharactersCallback)
+      let result = `<a href="${src}" target="¨E95Eblank" rel="noopener"`
 
-      let result = `<a href="${url}" target="¨E95Eblank" rel="noopener"`
-
-      if (!!title && title !== ``) {
-        title = title.replace(/"/g, `&quot;`)
-        title = title.replace(showdown.helper.regexes.asteriskAndDash, showdown.helper.escapeCharactersCallback)
-        result += ` title="${title}"`
+      if (!!linkTitle && linkTitle !== ``) {
+        linkTitle = linkTitle.replace(/"/g, `&quot;`)
+        linkTitle = linkTitle.replace(showdown.helper.regexes.asteriskAndDash, showdown.helper.escapeCharactersCallback)
+        result += ` title="${linkTitle}"`
       }
 
       result += `>${linkText}</a>`

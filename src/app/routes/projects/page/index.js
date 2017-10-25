@@ -1,4 +1,8 @@
-import Page from "./page"
+import { assemble } from "@components/containers"
+
+const Page = assemble({
+  loader: () => import(`./page`)
+})
 
 export default {
   path: `/projects/:id`,

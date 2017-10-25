@@ -1,4 +1,8 @@
-import Post from "./post"
+import { assemble } from "@components/containers"
+
+const Post = assemble({
+  loader: () => import(`./post`)
+})
 
 export default {
   path: `/blog/:post`,
