@@ -52,7 +52,7 @@
     "apollo-link-retry": "^0.8.0",
     "babel-plugin-react-css-modules": "^3.3.0",
     "blueimp-md5": "^2.10.0",
-    "bootstrap": "4.0.0-alpha.6",
+    "bootstrap": "4.0.0",
     "classnames": "^2.2.5",
     "compass-mixins": "^0.12.10",
     "date-fns": "^1.28.5",
